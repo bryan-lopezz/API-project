@@ -15,7 +15,31 @@ const reviews = [
     userId: 1,
     review: 'something good',
     stars: 4,
-  }
+  },
+  {
+    spotId: 2,
+    userId: 2,
+    review: 'something good',
+    stars: 4,
+  },
+  {
+    spotId: 3,
+    userId: 3,
+    review: 'something good',
+    stars: 4,
+  },
+  {
+    spotId: 4,
+    userId: 4,
+    review: 'something good',
+    stars: 4,
+  },
+  {
+    spotId: 5,
+    userId: 5,
+    review: 'something good',
+    stars: 4,
+  },
 ];
 
 /** @type {import('sequelize-cli').Migration} */

@@ -17,6 +17,26 @@ const spotImages = [
     url: 'sampleUrl1',
     preview: true,
   },
+  {
+    spotId: 2,
+    url: 'sampleUrl2',
+    preview: true,
+  },
+  {
+    spotId: 3,
+    url: 'sampleUrl3',
+    preview: true,
+  },
+  {
+    spotId: 4,
+    url: 'sampleUrl4',
+    preview: true,
+  },
+  {
+    spotId: 5,
+    url: 'sampleUrl5',
+    preview: true,
+  },
 ];
 
 module.exports = {

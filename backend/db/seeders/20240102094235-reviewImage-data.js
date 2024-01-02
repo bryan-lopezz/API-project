@@ -15,7 +15,23 @@ const reviewImages = [
   {
     reviewId: 1,
     url: 'reviewImageUrl1'
-  }
+  },
+  {
+    reviewId: 2,
+    url: 'reviewImageUrl2'
+  },
+  {
+    reviewId: 3,
+    url: 'reviewImageUrl3'
+  },
+  {
+    reviewId: 4,
+    url: 'reviewImageUrl4'
+  },
+  {
+    reviewId: 5,
+    url: 'reviewImageUrl5'
+  },
 ];
 
 module.exports = {
