@@ -1,33 +1,32 @@
 'use strict';
 
-const { Review } = require('../models');
+const { ReviewImage } = require('../models');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 };
 
-options.tableName = 'Reviews'
+options.tableName = 'ReviewImages'
 
-const reviews = [
+/** @type {import('sequelize-cli').Migration} */
+
+const reviewImages = [
   {
-    spotId: 1,
-    userId: 1,
-    review: 'something good',
-    stars: 4,
+    reviewId: 1,
+    url: 'reviewImageUrl1'
   }
 ];
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await Review.bulkCreate(reviews, {validate: true})
+    await ReviewImage.bulkCreate(reviewImages, {validate: true})
   },
 
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      id: { [Op.in]: [1] }
+      url: { [Op.in]: ['reviewImageUrl1'] }
     });
   }
 };
