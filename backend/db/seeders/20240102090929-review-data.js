@@ -17,16 +17,22 @@ const reviews = [
     stars: 4,
   },
   {
+    spotId: 1,
+    userId: 1,
+    review: 'something good',
+    stars: 2,
+  },
+  {
     spotId: 2,
     userId: 2,
     review: 'something good',
-    stars: 4,
+    stars: 2,
   },
   {
     spotId: 3,
     userId: 3,
     review: 'something good',
-    stars: 4,
+    stars: 2,
   },
   {
     spotId: 4,
@@ -51,7 +57,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      id: { [Op.in]: [1] }
+      id: { [Op.in]: [1, 2, 3, 4, 5] }
     });
   }
 };
