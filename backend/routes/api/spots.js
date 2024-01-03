@@ -66,9 +66,7 @@ router.get('/', async (req, res) => {
         let avgRating = null;
         if (avgRatingArray[0]) {
         avgRating = avgRatingArray[0].get('avgRating');
-        }
-
-        // const avgRating = avgRatingArray.length > 0 ? avgRatingArray[0].get('avgRating') : null;
+        };
 
 
         return {
