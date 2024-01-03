@@ -23,6 +23,18 @@ const spots = [
     price: 150,
   },
   {
+    ownerId: 1,
+    address: "324 Jett Street",
+    city: "Phoenix",
+    state: "Arizona",
+    country: "United States of Valor",
+    lat: 37.4483774,
+    lng: -111.0740372,
+    name: "Spike Icebox Academy",
+    description: "Training ground for frozen agents",
+    price: 160,
+  },
+  {
     ownerId: 2,
     address: "567 Jett Lane",
     city: "Windwalker",
@@ -81,7 +93,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ["234 Viper Street", "567 Jett Lane", "890 Brimstone Boulevard", "121 Sage Street", "789 Duelist Drive"] }
+      address: { [Op.in]: ["234 Viper Street", '324 Jett Street', "567 Jett Lane", "890 Brimstone Boulevard", "121 Sage Street", "789 Duelist Drive"] }
     })
   }
 };
