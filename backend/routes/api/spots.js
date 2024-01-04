@@ -220,7 +220,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   const { url, preview } = req.body;
   const spotId = req.params.spotId;
   const userId = req.user.id;
-    // Check if the specified spot exists
+
     const spot = await Spot.findByPk(spotId);
 
     if (!spot) {
@@ -229,14 +229,12 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
       });
     }
 
-    // Check if the spot belongs to the current user (assuming ownerId is the foreign key in Spot)
     if (spot.ownerId !== userId) {
       return res.status(403).json({
         message: "Unauthorized. You don't have permission to add an image to this spot."
       });
     }
 
-    // Create a new SpotImage associated with the specified spot
     const createSpotImage = await SpotImage.create({
       spotId: spotId,
       url: url,
@@ -286,6 +284,27 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
   const editedSpot = await Spot.findByPk(spotId);
 
   res.status(200).json(editedSpot);
+
+});
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+  const spotId = req.params.spotId;
+  const userId = req.user.id;
+
+  const spot = await Spot.findOne({
+    where: {
+      id: spotId,
+      ownerId: userId,
+    },
+  });
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+
+  await spot.destroy();
+
+  res.status(200).json({ message: 'Successfully deleted' });
 
 })
 
