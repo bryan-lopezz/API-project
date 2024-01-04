@@ -253,4 +253,40 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 })
 
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const userId = req.user.id;
+  const spotId = req.params.spotId;
+
+  const spot = await Spot.findOne({
+    where: {
+      id: spotId,
+      ownerId: userId,
+    },
+  });
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+
+  spot.set({
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+
+  await spot.save();
+
+  const editedSpot = await Spot.findByPk(spotId);
+
+  res.status(200).json(editedSpot);
+
+})
+
 module.exports = router;
