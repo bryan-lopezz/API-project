@@ -216,4 +216,41 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
   res.status(201).json(newSpot);
 });
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+  const { url, preview } = req.body;
+  const spotId = req.params.spotId;
+  const userId = req.user.id;
+    // Check if the specified spot exists
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+      return res.status(404).json({
+        message: "Spot couldn't be found"
+      });
+    }
+
+    // Check if the spot belongs to the current user (assuming ownerId is the foreign key in Spot)
+    if (spot.ownerId !== userId) {
+      return res.status(403).json({
+        message: "Unauthorized. You don't have permission to add an image to this spot."
+      });
+    }
+
+    // Create a new SpotImage associated with the specified spot
+    const createSpotImage = await SpotImage.create({
+      spotId: spotId,
+      url: url,
+      preview: preview
+    });
+
+    const newImageResponse = {
+      id: createSpotImage.id,
+      url: createSpotImage.id,
+      preview: createSpotImage.preview
+    };
+
+    res.status(200).json(newImageResponse);
+
+})
+
 module.exports = router;
