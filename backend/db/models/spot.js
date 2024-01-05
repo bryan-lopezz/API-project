@@ -97,11 +97,7 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.DECIMAL,
       validate: {
-        isPos(value) {
-          if (parseInt(value) < 0) {
-            throw new Error('Price per day must be a positive number')
-          }
-        }
+        min: 0,
       },
     },
   }, {
