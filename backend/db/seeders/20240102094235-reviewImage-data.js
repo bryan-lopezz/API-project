@@ -17,6 +17,10 @@ const reviewImages = [
     url: 'reviewImageUrl1'
   },
   {
+    reviewId: 1,
+    url: 'reviewImageUrl12'
+  },
+  {
     reviewId: 2,
     url: 'reviewImageUrl2'
   },
@@ -42,7 +46,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['reviewImageUrl1', 'reviewImageUrl2', 'reviewImageUrl3', 'reviewImageUrl4', 'reviewImageUrl5'] }
+      url: { [Op.in]: ['reviewImageUrl1', 'reviewImageUrl12', 'reviewImageUrl2', 'reviewImageUrl3', 'reviewImageUrl4', 'reviewImageUrl5'] }
     });
   }
 };

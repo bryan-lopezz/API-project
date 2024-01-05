@@ -15,11 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Review.belongsTo(models.User, {
-        foreignKey: 'userId'
+        foreignKey: 'userId',
       });
 
-      Review.hasOne(models.ReviewImage, {
-        foreignKey: 'reviewId'
+      Review.hasMany(models.ReviewImage, {
+        foreignKey: 'reviewId',
+        onDelete: 'CASCADE',
+        hooks: true
       });
     }
   }

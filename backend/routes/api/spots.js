@@ -191,7 +191,6 @@ router.get('/:spotId', async (req, res) => {
     SpotImages: spot.SpotImages,
     Owner: owner ? owner.toJSON() : null,
   };
-  console.log('spotDetails:', spotDetails);
 
   res.status(200).json(spotDetails);
 });
