@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review, User } = require('../../db/models');
+const { Spot, SpotImage, Review, User, ReviewImage } = require('../../db/models');
 const Sequelize = require('sequelize');
 
 const validateSpot = [
@@ -305,6 +305,54 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
   res.status(200).json({ message: 'Successfully deleted' });
 
+})
+
+router.get('/:spotId/reviews', async (req, res) => {
+  const spotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if(!spot) {
+    return res.status(404).json({message: "Spot couldn't be found"})
+  };
+
+  const reviews = await Review.findAll({
+    where: {
+      spotId: spotId
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: ReviewImage,
+        attributes: ['id', 'url']
+      }
+    ]
+  });
+
+
+  const reviewsList = reviews.map(review => ({
+    id: review.id,
+    userId: review.userId,
+    spotId: review.spotId,
+    review: review.review,
+    stars: review.stars,
+    createdAt: review.createdAt,
+    updatedAt: review.updatedAt,
+    User: {
+      id: review.User.id,
+      firstName: review.User.firstName,
+      lastName: review.User.lastName
+    },
+    ReviewImages: review.ReviewImages.map(image => ({
+      id: image.id,
+      url: image.url
+    }))
+  }));
+
+  res.json({Reviews: reviewsList});
 })
 
 module.exports = router;

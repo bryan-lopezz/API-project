@@ -18,7 +18,6 @@ router.get('/current', requireAuth, async (req, res) => {
     include: [
       {
         model: Spot,
-        // as: 'Spot',
         include: [
           {
             model: SpotImage,
@@ -29,7 +28,6 @@ router.get('/current', requireAuth, async (req, res) => {
       },
       {
         model: User,
-        // as: 'User',
         attributes: ['id', 'firstName', 'lastName']
       },
       {
@@ -39,7 +37,6 @@ router.get('/current', requireAuth, async (req, res) => {
     ]
   });
 
-  // Modify the structure of the reviews before sending the response
   const reviewsList = reviews.map(review => ({
     id: review.id,
     userId: review.userId,
