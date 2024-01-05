@@ -85,21 +85,6 @@ router.get('/current', requireAuth, async(req, res) => {
     where: {
       ownerId: userId,
     },
-    attributes: [
-      'id',
-      'ownerId',
-      'address',
-      'city',
-      'state',
-      'country',
-      'lat',
-      'lng',
-      'name',
-      'description',
-      'price',
-      'createdAt',
-      'updatedAt',
-    ],
   });
 
   const spotRes = await Promise.all(
