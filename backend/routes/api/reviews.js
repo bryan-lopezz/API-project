@@ -8,6 +8,12 @@ const { Spot, SpotImage, Review, User, ReviewImage } = require('../../db/models'
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
+const validateReview = [
+  check('review').notEmpty().withMessage('Review text is required'),
+  check('stars').isNumeric({min: 1, max: 5}).withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+];
+
 router.get('/current', requireAuth, async (req, res) => {
   const userId = req.user.id;
 
@@ -83,7 +89,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
       reviewId: reviewId
     },
   });
-  // res.json(allReviewImages);
+
   if(allReviewImages.length >= 10) {
     return res.status(403).json({
       message: "Maximum number of images for this resource was reached"
@@ -114,6 +120,37 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
   res.status(200).json(newReviewImageResponse);
 })
+
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+  const { review, stars } = req.body;
+  const userId = req.user.id;
+  const reviewId = req.params.reviewId;
+
+  const reviewToEdit = await Review.findOne({
+    where: {
+      id: reviewId,
+      userId: userId,
+    },
+  });
+
+  if (!reviewToEdit) {
+    return res.status(404).json({ message: "Review couldn't be found" });
+  }
+
+  reviewToEdit.set({
+    userId,
+    spotId: reviewToEdit.spotId,
+    review,
+    stars
+  });
+
+  await reviewToEdit.save();
+
+  const editedReview = await Review.findByPk(reviewId);
+
+  res.status(200).json(editedReview);
+});
+
 
 
 module.exports = router;
