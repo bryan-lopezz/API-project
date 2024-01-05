@@ -72,5 +72,48 @@ router.get('/current', requireAuth, async (req, res) => {
   res.status(200).json({ Reviews: reviewsList });
 });
 
+router.post('/:reviewId/images', requireAuth, async (req, res) => {
+  const { url } = req.body;
+  const userId = req.user.id;
+  const reviewId = req.params.reviewId;
+
+  const review = await Review.findByPk(reviewId);
+  const allReviewImages = await ReviewImage.findAll({
+    where: {
+      reviewId: reviewId
+    },
+  });
+  // res.json(allReviewImages);
+  if(allReviewImages.length >= 10) {
+    return res.status(403).json({
+      message: "Maximum number of images for this resource was reached"
+    });
+  };
+
+  if(!review) {
+    return res.status(404).json({
+      message: "Review couldn't be found"
+    });
+  };
+
+  if (review.userId !== userId) {
+    return res.status(403).json({
+      message: "Unauthorized. You don't have permission to add an image to this spot."
+    });
+  };
+
+  const createReviewImage = await ReviewImage.create({
+    reviewId,
+    url
+  });
+
+  const newReviewImageResponse = {
+    id: createReviewImage.id,
+    url: createReviewImage.url
+  };
+
+  res.status(200).json(newReviewImageResponse);
+})
+
 
 module.exports = router;
