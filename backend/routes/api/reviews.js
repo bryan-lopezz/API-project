@@ -10,7 +10,7 @@ const { Op } = require('sequelize');
 
 const validateReview = [
   check('review').notEmpty().withMessage('Review text is required'),
-  check('stars').isNumeric({min: 1, max: 5}).withMessage('Stars must be an integer from 1 to 5'),
+  check('stars').isInt({min: 1, max: 5}).withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
 
@@ -141,7 +141,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     userId,
     spotId: reviewToEdit.spotId,
     review,
-    stars
+    stars,
   });
 
   await reviewToEdit.save();
