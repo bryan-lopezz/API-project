@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review, User, ReviewImage } = require('../../db/models');
+const { Spot, SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 const Sequelize = require('sequelize');
 
 const validateSpot = [
@@ -381,6 +381,42 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
   });
 
   res.status(201).json(createSpotReview);
+});
+
+router.get('/:spotId/bookings', requireAuth, async(req, res) => {
+  const spotId = req.params.spotId;
+  const userId = req.user.id;
+
+  const spot = await Spot.findByPk(spotId);
+  // console.log(spot.ownerId)
+
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found"
+    });
+  };
+
+  const bookings = await Booking.findAll({
+    where: {
+      spotId,
+    },
+    attributes: ['spotId', 'startDate', 'endDate']
+  });
+
+  const userBookings = await Booking.findAll({
+    where: {
+      spotId,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      },
+    ]
+  })
+
+  userId == spot.ownerId ? res.json({Bookings: userBookings}) : res.json({Bookings: bookings});
+
 });
 
 module.exports = router;
