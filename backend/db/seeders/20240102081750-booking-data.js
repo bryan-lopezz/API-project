@@ -33,8 +33,8 @@ const bookings = [
   {
     spotId: 4,
     userId: 1,
-    startDate: '2024-11-19',
-    endDate: '2024-11-20'
+    startDate: '2024-1-5',
+    endDate: '2024-1-20'
   },
   {
     spotId: 5,

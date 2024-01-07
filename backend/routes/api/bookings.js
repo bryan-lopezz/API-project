@@ -160,4 +160,42 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
 });
 
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+  const bookingId = req.params.bookingId;
+  const userId = req.user.id;
+
+  const booking = await Booking.findOne({
+    where: {
+      id: bookingId,
+      userId,
+    }
+  });
+
+  if (!booking) {
+    return res.status(404).json({
+      message: "Booking couldn't be found"
+    });
+  };
+
+  const spot = await Spot.findByPk(booking.spotId);
+
+  const currentTime = new Date();
+  const bookingStart = new Date(booking.startDate);
+  const bookingEnd = new Date(booking.endDate)
+
+  if (currentTime >= bookingStart && currentTime <= bookingEnd) {
+    return res.status(403).json({
+      message: "Bookings that have been started can't be deleted"
+    });
+  };
+
+  if (booking || spot) {
+    await booking.destroy()
+
+    return res.json({
+      message: "Successfully deleted"
+    });
+  };
+});
+
 module.exports = router;
