@@ -462,7 +462,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     });
   };
 
-
   if (endDateCheck <= startDateCheck) {
     return res.status(400).json({
       message: "Bad Request",
@@ -507,8 +506,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
       startDate,
       endDate
     })
-    // res.json(newBooking);
-    res.send('testing')
+    res.json(newBooking);
   };
 
 })

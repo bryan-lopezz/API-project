@@ -33,7 +33,7 @@ router.get('/current', requireAuth, async (req, res) => {
     spotId: booking.spotId,
     Spot: {
       id: booking.Spot.id,
-      ownerId: userId,
+      ownerId: booking.Spot.ownerId,
       address: booking.Spot.address,
       city: booking.Spot.city,
       state: booking.Spot.state,
@@ -52,6 +52,112 @@ router.get('/current', requireAuth, async (req, res) => {
   }));
 
   res.status(200).json({ Bookings: responseBookings });
-})
+});
+
+router.put('/:bookingId', requireAuth, async (req, res) => {
+  const { startDate, endDate } = req.body;
+  const bookingId = req.params.bookingId;
+  const userId = req.user.id;
+
+  const booking = await Booking.findOne({
+    where: {
+      id: bookingId,
+      userId,
+    }
+  });
+
+  if (!booking) {
+    return res.status(404).json({
+      message: "Booking couldn't be found"
+    });
+  };
+
+  if(booking.userId !== userId) {
+    return res.status(403).json({
+      message: "You are not authorized to make this request"
+    });
+  };
+
+  const currentDate = new Date();
+  const startDateCheck = new Date(startDate);
+  const endDateCheck = new Date(endDate);
+
+  const existingBooking = await Booking.findOne({
+    where: {
+      id: { [Op.ne]: bookingId },
+      spotId: booking.spotId,
+      [Op.and]: [
+        {
+          startDate: {
+            [Op.lte]: endDateCheck
+          }
+        },
+        {
+          endDate: {
+            [Op.gte]: startDateCheck
+          }
+        }
+      ]
+    }
+  });
+
+  if(endDateCheck < currentDate) {
+    return res.status(403).json({
+      message: "Past bookings can't be modified"
+    });
+  };
+
+  if (startDateCheck < currentDate && endDateCheck <= startDateCheck) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past",
+        endDate: "endDate cannot be on or before startDate"
+      }
+    });
+  }
+
+  if (startDateCheck < currentDate) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past"
+      }
+    });
+  };
+
+  if (endDateCheck <= startDateCheck) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        endDate: "endDate cannot be on or before startDate"
+      }
+    });
+  };
+
+  if (existingBooking) {
+    return res.status(403).json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: {
+        startDate: "Start date conflicts with an existing booking",
+        endDate: "End date conflicts with an existing booking"
+      }
+    });
+  };
+
+  booking.set({
+    spotId: booking.spotId,
+    userId,
+    startDate,
+    endDate
+  });
+
+  await booking.save();
+
+  const editedBooking = await Booking.findByPk(bookingId);
+
+  res.json(editedBooking);
+
+});
 
 module.exports = router;
