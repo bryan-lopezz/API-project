@@ -106,7 +106,7 @@ router.get('/', async (req, res) => {
       let avgRating = null;
       if (avgRatingArray[0]) {
       avgRating = avgRatingArray[0].get('avgRating');
-      avgRating = parseInt(avgRating);
+      avgRating = Number.parseFloat(avgRating).toFixed(1);
       };
 
 
