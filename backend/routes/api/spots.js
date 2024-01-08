@@ -29,55 +29,95 @@ const validateReview = [
 ];
 
 router.get('/', async (req, res) => {
-    const spots = await Spot.findAll({
-      attributes: [
-        'id',
-        'ownerId',
-        'address',
-        'city',
-        'state',
-        'country',
-        'lat',
-        'lng',
-        'name',
-        'description',
-        'price',
-        'createdAt',
-        'updatedAt',
-      ],
+  let { size, page } = req.query;
+
+  if (parseInt(size) < 1 && parseInt(page) < 1) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        page: "Page must be greater than or equal to 1",
+        size: "Size must be greater than or equal to 1"
+      }
     });
+  };
 
-    const spotRes = await Promise.all(
-      spots.map(async (spot) => {
-        const avgRatingArray = await Review.findAll({
-          attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']],
-          where: {
-            spotId: spot.id,
-          },
-        });
+  if (parseInt(page) < 1) {
+    return res.status(400).json({
+      message: "Bad Request",
+      error: {
+        page: "Page must be greater than or equal to 1"
+      }
+    });
+  };
 
-        const previewImage = await SpotImage.findOne({
-          attributes: ['url'],
-          where: {
-            spotId: spot.id,
-          },
-        });
-
-        let avgRating = null;
-        if (avgRatingArray[0]) {
-        avgRating = avgRatingArray[0].get('avgRating');
-        };
+  if (parseInt(size) < 1) {
+    return res.status(400).json({
+      message: "Bad Request",
+      error: {
+        size: "Size must be greater than or equal to 1"
+      }
+    });
+  };
 
 
-        return {
-          ...spot.toJSON(),
-          avgRating,
-          previewImage: previewImage ? previewImage.url : null,
-        };
-      })
-    );
+  const pagination = {
+    limit: size,
+    offset: size * (page - 1)
+  };
 
-    res.status(200).json({ Spots: spotRes });
+  page = Math.min(10, parseInt(page)) || 1;
+  size = Math.min(20, parseInt(size)) || 20;
+
+  const spots = await Spot.findAll({
+    attributes: [
+      'id',
+      'ownerId',
+      'address',
+      'city',
+      'state',
+      'country',
+      'lat',
+      'lng',
+      'name',
+      'description',
+      'price',
+      'createdAt',
+      'updatedAt',
+    ],
+    ...pagination
+  });
+
+  const spotRes = await Promise.all(
+    spots.map(async (spot) => {
+      const avgRatingArray = await Review.findAll({
+        attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']],
+        where: {
+          spotId: spot.id,
+        },
+      });
+
+      const previewImage = await SpotImage.findOne({
+        attributes: ['url'],
+        where: {
+          spotId: spot.id,
+        },
+      });
+
+      let avgRating = null;
+      if (avgRatingArray[0]) {
+      avgRating = avgRatingArray[0].get('avgRating');
+      };
+
+
+      return {
+        ...spot.toJSON(),
+        avgRating,
+        previewImage: previewImage ? previewImage.url : null,
+      };
+    })
+  );
+
+  res.status(200).json({ Spots: spotRes, page, size });
 });
 
 router.get('/current', requireAuth, async(req, res) => {
