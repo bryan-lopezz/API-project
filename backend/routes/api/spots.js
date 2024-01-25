@@ -59,14 +59,14 @@ router.get('/', async (req, res) => {
     });
   };
 
+  page = Math.min(10, parseInt(page)) || 1;
+  size = Math.min(20, parseInt(size)) || 20;
 
   const pagination = {
     limit: size,
     offset: size * (page - 1)
   };
 
-  page = Math.min(10, parseInt(page)) || 1;
-  size = Math.min(20, parseInt(size)) || 20;
 
   const spots = await Spot.findAll({
     attributes: [
@@ -106,11 +106,12 @@ router.get('/', async (req, res) => {
       let avgRating = null;
       if (avgRatingArray[0]) {
       avgRating = avgRatingArray[0].get('avgRating');
-      avgRating = Number.parseFloat(avgRating).toFixed(1);
+      avgRating = parseInt(avgRating).toFixed(1);
       };
 
 
       return {
+        hello: 'test',
         ...spot.toJSON(),
         avgRating,
         previewImage: previewImage ? previewImage.url : null,
@@ -430,7 +431,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res) => {
   const userId = req.user.id;
 
   const spot = await Spot.findByPk(spotId);
-  
+
   if (!spot) {
     return res.status(404).json({
       message: "Spot couldn't be found"
