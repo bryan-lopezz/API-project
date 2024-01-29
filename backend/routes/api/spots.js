@@ -265,7 +265,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     if (spot.ownerId !== userId) {
       return res.status(403).json({
-        message: "Unauthorized. You don't have permission to add an image to this spot."
+        message: "Forbidden"
       });
     }
 
