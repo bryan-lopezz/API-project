@@ -290,18 +290,20 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
   const userId = req.user.id;
   const spotId = req.params.spotId;
 
+  const currentSpot = await Spot.findByPk(spotId);
+
+  if (currentSpot.ownerId !== userId) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
+
   const spot = await Spot.findOne({
     where: {
       id: spotId,
       ownerId: userId,
     },
   });
-
-  if (spot.ownerId !== userId) {
-    return res.status(403).json({
-      message: "Forbidden"
-    });
-  };
 
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
@@ -338,9 +340,10 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     },
   });
 
+
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
-  }
+  };
 
   await spot.destroy();
 
