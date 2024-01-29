@@ -267,7 +267,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
       return res.status(403).json({
         message: "Forbidden"
       });
-    }
+    };
 
     const createSpotImage = await SpotImage.create({
       spotId: spotId,
@@ -296,6 +296,12 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
       ownerId: userId,
     },
   });
+
+  if (spot.ownerId !== userId) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
 
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
