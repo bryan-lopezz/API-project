@@ -124,11 +124,11 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 })
 
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
-  const { review, stars } = req.body;
+  let { review, stars } = req.body;
   const userId = req.user.id;
   const reviewId = req.params.reviewId;
 
-  const currentReview = await Review.findByPk(reviewId);
+  let currentReview = await Review.findByPk(reviewId);
 
   if (!currentReview) {
     return res.status(404).json({ message: "Review couldn't be found" });
@@ -141,29 +141,29 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     });
   };
 
-  const reviewToEdit = await Review.findOne({
-    where: {
-      id: reviewId,
-      userId: userId,
-    },
-  });
+  // const reviewToEdit = await Review.findOne({
+  //   where: {
+  //     id: reviewId,
+  //     userId: userId,
+  //   },
+  // });
 
-  if (!reviewToEdit) {
-    return res.status(404).json({ message: "Review couldn't be found" });
-  }
+  // if (!reviewToEdit) {
+  //   return res.status(404).json({ message: "Review couldn't be found" });
+  // }
 
-  reviewToEdit.set({
+  currentReview.set({
     userId,
-    spotId: reviewToEdit.spotId,
+    spotId: currentReview.spotId,
     review,
     stars,
   });
 
-  await reviewToEdit.save();
+  await currentReview.save();
 
-  const editedReview = await Review.findByPk(reviewId);
+  // const editedReview = await Review.findByPk(reviewId);
 
-  res.status(200).json(editedReview);
+  res.status(200).json(currentReview);
 });
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
