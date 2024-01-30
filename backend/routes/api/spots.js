@@ -493,7 +493,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
   if(spot.ownerId == userId) {
     return res.status(403).json({
-      message: "You can't create a booking for your own spot"
+      message: "Forbidden"
     });
   };
 

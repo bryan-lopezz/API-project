@@ -84,6 +84,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
   const reviewId = req.params.reviewId;
 
   const review = await Review.findByPk(reviewId);
+
+  if (review.userId !== userId) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
+
   const allReviewImages = await ReviewImage.findAll({
     where: {
       reviewId: reviewId
@@ -102,11 +109,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     });
   };
 
-  if (review.userId !== userId) {
-    return res.status(403).json({
-      message: "Unauthorized. You don't have permission to add an image to this spot."
-    });
-  };
 
   const createReviewImage = await ReviewImage.create({
     reviewId,
@@ -125,6 +127,19 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
   const { review, stars } = req.body;
   const userId = req.user.id;
   const reviewId = req.params.reviewId;
+
+  const currentReview = await Review.findByPk(reviewId);
+
+  if (!currentReview) {
+    return res.status(404).json({ message: "Review couldn't be found" });
+  }
+
+  if (currentReview.userId !== userId) {
+    res.status(403);
+    return res.json({
+      message: "Forbidden"
+    });
+  };
 
   const reviewToEdit = await Review.findOne({
     where: {
