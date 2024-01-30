@@ -57,7 +57,10 @@ app.use((err, _req, _res, next) => {
 
   if (err instanceof ValidationError) {
     let errors = {};
+    console.log("inside validation error");
     for (let error of err.errors) {
+      console.log(err.errors)
+      console.log("Path ====>", error.path)
       errors[error.path] = error.message;
     }
     err.title = 'Validation error';
@@ -72,7 +75,8 @@ app.use((err, _req, res, _next) => {
    return res.status(err.status || 500)
     .json({
       message: err.message,
-    })
+      errors: err.errors,
+    });
   };
 
   res.status(err.status || 500);
@@ -83,7 +87,7 @@ app.use((err, _req, res, _next) => {
     errors: err.errors,
     stack: err.stack
   });
-  
+
 });
 
 module.exports = app;
