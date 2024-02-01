@@ -60,19 +60,18 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
   const booking = await Booking.findOne({
     where: {
       id: bookingId,
-      userId,
     }
   });
+
+  if(booking && (booking.userId !== userId)) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
 
   if (!booking) {
     return res.status(404).json({
       message: "Booking couldn't be found"
-    });
-  };
-
-  if(booking.userId !== userId) {
-    return res.status(403).json({
-      message: "You are not authorized to make this request"
     });
   };
 
@@ -207,9 +206,14 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
   const booking = await Booking.findOne({
     where: {
       id: bookingId,
-      userId,
     }
   });
+
+  if(booking && (booking.userId !== userId)) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
 
   if (!booking) {
     return res.status(404).json({

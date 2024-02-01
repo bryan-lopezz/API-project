@@ -19,12 +19,15 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     include: [
       {
         model: Review,
-        where: {
-          userId,
-        }
       }
     ]
   });
+
+  if(reviewImage && (reviewImage.Review.userId !== userId)) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
 
   if (!reviewImage) {
     return res.status(404).json({

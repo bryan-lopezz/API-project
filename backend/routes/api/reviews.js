@@ -90,7 +90,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
       message: "Review couldn't be found"
     });
   };
-  
+
   if (review.userId !== userId) {
     return res.status(403).json({
       message: "Forbidden"
@@ -174,9 +174,14 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
   const review = await Review.findOne({
     where: {
       id: reviewId,
-      userId: userId,
     },
   });
+
+  if(review && (review.userId !== userId)) {
+    return res.status(403).json({
+      message: "Forbidden"
+    });
+  };
 
   if (!review) {
     return res.status(404).json({ message: "Review couldn't be found" });
