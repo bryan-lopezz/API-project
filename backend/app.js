@@ -21,18 +21,15 @@ app.use(cookieParser());
 app.use(express.json());
 
 if (!isProduction) {
-  // enable cors only in development
   app.use(cors());
 }
 
-// helmet helps set a variety of headers to better secure your app
 app.use(
   helmet.crossOriginResourcePolicy({
     policy: "cross-origin"
   })
 );
 
-// Set the _csrf token and create req.csrfToken method
 app.use(
   csurf({
     cookie: {
@@ -57,10 +54,7 @@ app.use((err, _req, _res, next) => {
 
   if (err instanceof ValidationError) {
     let errors = {};
-    console.log("inside validation error");
     for (let error of err.errors) {
-      console.log(err.errors)
-      console.log("Path ====>", error.path)
       errors[error.path] = error.message;
     }
     err.title = 'Validation error';
