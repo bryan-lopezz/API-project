@@ -21,45 +21,95 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+const validateSpotQueryParams = [
+  check('page').isInt({ min: 1 }).optional().withMessage('Page must be greater than or equal to 1'),
+  check('size').isFloat({ min: 1 }).optional().withMessage('Size must be greater than or equal to 1'),
+  check('minLat').isFloat({ min: -90 }).optional().withMessage('Minimum latitude is invalid'),
+  check('maxLat').isFloat({ max: 90 }).optional().withMessage('Maximum latitude is invalid'),
+  check('minLng').isFloat({ min: -180 }).optional().withMessage('Minimum longitude is invalid'),
+  check('maxLng').isFloat({ max: 180 }).optional().withMessage('Maximum longitude is invalid'),
+  check('minPrice').isInt({ min: 0 }).optional().withMessage('Minimum price must be greater than or equal to 0'),
+  check('maxPrice').isInt({ min: 0 }).optional().withMessage('Maximum price must be greater than or equal to 0'),
+  handleValidationErrors
+];
+
 const validateReview = [
   check('review').notEmpty().withMessage('Review text is required'),
   check('stars').isNumeric({min: 1, max: 5}).withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
 
-router.get('/', async (req, res) => {
-  let { size, page } = req.query;
-
-  if (parseInt(size) < 1 && parseInt(page) < 1) {
-    return res.status(400).json({
-      message: "Bad Request",
-      errors: {
-        page: "Page must be greater than or equal to 1",
-        size: "Size must be greater than or equal to 1"
-      }
-    });
-  };
-
-  if (parseInt(page) < 1) {
-    return res.status(400).json({
-      message: "Bad Request",
-      error: {
-        page: "Page must be greater than or equal to 1"
-      }
-    });
-  };
-
-  if (parseInt(size) < 1) {
-    return res.status(400).json({
-      message: "Bad Request",
-      error: {
-        size: "Size must be greater than or equal to 1"
-      }
-    });
-  };
+router.get('/', validateSpotQueryParams, async (req, res) => {
+  let { size, page, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
   page = Math.min(10, parseInt(page)) || 1;
   size = Math.min(20, parseInt(size)) || 20;
+
+  const where = {};
+
+  if (minLat && maxLat) {
+    minLat = parseFloat(minLat)
+    maxLat = parseFloat(maxLat)
+
+    where.lat = {
+      [Op.and]: [
+        { [Op.gte]: minLat },
+        { [Op.lte]: maxLat }
+      ]
+     };
+  }
+  if (minLng && maxLng) {
+    minLng = parseFloat(minLng)
+    maxLng = parseFloat(maxLng)
+
+    where.lng = {
+      [Op.and]: [
+        { [Op.gte]: minLng },
+        { [Op.lte]: maxLng }
+      ]
+     };
+  }
+  if (minPrice && maxPrice) {
+    minPrice = parseFloat(minPrice)
+    maxPrice = parseFloat(maxPrice)
+
+    where.price = {
+      [Op.and]: [
+        { [Op.gte]: minPrice },
+        { [Op.lte]: maxPrice }
+      ]
+     };
+  }
+
+  if (minLat) {
+    minLat = parseFloat(minLat)
+    where.lat = { [Op.gte]: minLat };
+  };
+
+  if (maxLat) {
+    maxLat = parseFloat(maxLat)
+    where.lat = { [Op.lte]: maxLat };
+  };
+
+  if (minLng) {
+    minLng = parseFloat(minLng)
+    where.lng = { [Op.gte]: minLng };
+  };
+
+  if (maxLng) {
+    maxLng = parseFloat(maxLng)
+    where.lng = { [Op.lte]: maxLng };
+  };
+
+  if (minPrice) {
+    minPrice = parseInt(minPrice)
+    where.price = { [Op.gte]: minPrice };
+  };
+
+  if (maxPrice) {
+    maxPrice = parseInt(maxPrice)
+    where.price = { [Op.lte]: maxPrice };
+  };
 
   const pagination = {
     limit: size,
@@ -68,6 +118,7 @@ router.get('/', async (req, res) => {
 
 
   const spots = await Spot.findAll({
+    where,
     attributes: [
       'id',
       'ownerId',
@@ -102,20 +153,21 @@ router.get('/', async (req, res) => {
         },
       });
 
-      let avgRating = null;
       if (avgRatingArray[0]) {
-      avgRating = avgRatingArray[0].get('avgRating');
-      avgRating = parseInt(avgRating).toFixed(1);
+        avgRating = avgRatingArray[0].get('avgRating');
+        avgRating = parseFloat(avgRating);
       };
-
 
       return {
         ...spot.toJSON(),
-        avgRating,
-        previewImage: previewImage ? previewImage.url : null,
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
+        price: parseFloat(price),
+        avgRating: avgRating || "No reviews",
+        previewImage: previewImage ? previewImage.url : "No preview",
       };
     })
-  );
+    );
 
   res.status(200).json({ Spots: spotRes, page, size });
 });
@@ -144,15 +196,15 @@ router.get('/current', requireAuth, async(req, res) => {
         },
       });
 
-      let avgRating = null;
       if (avgRatingArray[0]) {
       avgRating = avgRatingArray[0].get('avgRating');
+      avgRating = parseFloat(avgRating);
       };
 
 
       return {
         ...spot.toJSON(),
-        avgRating,
+        avgRating: avgRating || "No reviews",
         previewImage: previewImage ? previewImage.url : null,
       };
     })
@@ -399,8 +451,8 @@ router.get('/:spotId/reviews', async (req, res) => {
 });
 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
-  const { review, stars } = req.body;
-  const spotId = req.params.spotId;
+  let { review, stars } = req.body;
+  const spotId = parseInt(req.params.spotId);
   const userId = req.user.id;
 
   const spot = await Spot.findByPk(spotId);

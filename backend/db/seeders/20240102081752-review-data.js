@@ -20,7 +20,7 @@ const reviews = [
     spotId: 1,
     userId: 2,
     review: 'something good',
-    stars: 2,
+    stars: 3,
   },
   {
     spotId: 2,
