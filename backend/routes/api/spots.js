@@ -204,6 +204,9 @@ router.get('/current', requireAuth, async(req, res) => {
 
       return {
         ...spot.toJSON(),
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
+        price: parseFloat(spot.price),
         avgRating: avgRating || "No reviews",
         previewImage: previewImage ? previewImage.url : null,
       };
