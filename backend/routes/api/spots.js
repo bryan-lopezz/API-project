@@ -162,7 +162,7 @@ router.get('/', validateSpotQueryParams, async (req, res) => {
         ...spot.toJSON(),
         lat: parseFloat(spot.lat),
         lng: parseFloat(spot.lng),
-        price: parseFloat(price),
+        price: parseFloat(spot.price),
         avgRating: avgRating || "No reviews",
         previewImage: previewImage ? previewImage.url : "No preview",
       };
