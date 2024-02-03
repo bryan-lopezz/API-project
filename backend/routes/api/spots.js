@@ -260,6 +260,7 @@ router.get('/:spotId', async (req, res) => {
     },
   });
 
+  
   const spotDetails = {
     id: spot.id,
     ownerId: spot.ownerId,
@@ -267,11 +268,11 @@ router.get('/:spotId', async (req, res) => {
     city: spot.city,
     state: spot.state,
     country: spot.country,
-    lat: spot.lat,
-    lng: spot.lng,
+    lat: parseFloat(spot.lat),
+    lng: parseFloat(spot.lng),
     name: spot.name,
     description: spot.description,
-    price: spot.price,
+    price: parseFloat(spot.price),
     createdAt: spot.createdAt,
     updatedAt: spot.updatedAt,
     numReviews: reviewsData ? reviewsData.get('numReviews') : 0,
