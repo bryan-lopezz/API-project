@@ -17,16 +17,7 @@ router.use('/bookings', bookingsRouter);
 router.use('/spot-images', spotImagesRouter);
 router.use('/review-images', reviewImagesRouter);
 
-router.post('/test', (req, res) => {
-res.json({ requestBody: req.body });
-});
 
-
-
-// * ~ for testing user auth middleware routes ~ *
-// router.post('/test', function(req, res) {
-//   res.json({ requestBody: req.body });
-// });
 
 const { setTokenCookie } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
