@@ -195,7 +195,15 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
   const editedBooking = await Booking.findByPk(bookingId);
 
-  res.json(editedBooking);
+  const formattedBookingEditResponse = {
+    ...editedBooking.toJSON(),
+    startDate: editedBooking.startDate.toJSON().slice(0,10),
+    endDate: editedBooking.endDate.toJSON().slice(0,10),
+    createdAt: editedBooking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    updatedAt: editedBooking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+  };
+
+  res.json(formattedBookingEditResponse);
 
 });
 
