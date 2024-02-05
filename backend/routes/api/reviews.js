@@ -49,8 +49,8 @@ router.get('/current', requireAuth, async (req, res) => {
     spotId: review.spotId,
     review: review.review,
     stars: parseInt(review.stars),
-    createdAt: review.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: review.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: review.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: review.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
     User: {
       id: review.User.id,
       firstName: review.User.firstName,
@@ -153,8 +153,8 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 
   const formattedReviewResponse = {
     ...currentReview.toJSON(),
-    createdAt: currentReview.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: currentReview.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: currentReview.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: currentReview.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
   }
 
   res.status(200).json(formattedReviewResponse);
