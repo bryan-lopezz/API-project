@@ -36,17 +36,17 @@ router.get('/current', requireAuth, async (req, res) => {
       city: booking.Spot.city,
       state: booking.Spot.state,
       country: booking.Spot.country,
-      lat: booking.Spot.lat,
-      lng: booking.Spot.lng,
+      lat: parseFloat(booking.Spot.lat),
+      lng: parseFloat(booking.Spot.lng),
       name: booking.Spot.name,
-      price: booking.Spot.price,
+      price: parseFloat(booking.Spot.price),
       previewImage: booking.Spot.SpotImages.length > 0 ? booking.Spot.SpotImages[0].url : 'no image available'
     },
     userId: booking.userId,
-    startDate: booking.startDate,
-    endDate: booking.endDate,
-    createdAt: booking.createdAt,
-    updatedAt: booking.updatedAt,
+    startDate: booking.startDate.toJSON().slice(0,10),
+    endDate: booking.endDate.toJSON().slice(0,10),
+    createdAt: booking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    updatedAt: booking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
   }));
 
   res.status(200).json({ Bookings: responseBookings });
