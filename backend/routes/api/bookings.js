@@ -45,8 +45,8 @@ router.get('/current', requireAuth, async (req, res) => {
     userId: booking.userId,
     startDate: booking.startDate.toJSON().slice(0,10),
     endDate: booking.endDate.toJSON().slice(0,10),
-    createdAt: booking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: booking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: booking.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: booking.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
   }));
 
   res.status(200).json({ Bookings: responseBookings });
@@ -199,8 +199,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     ...editedBooking.toJSON(),
     startDate: editedBooking.startDate.toJSON().slice(0,10),
     endDate: editedBooking.endDate.toJSON().slice(0,10),
-    createdAt: editedBooking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: editedBooking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: editedBooking.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: editedBooking.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
   };
 
   res.json(formattedBookingEditResponse);
