@@ -48,9 +48,9 @@ router.get('/current', requireAuth, async (req, res) => {
     userId: review.userId,
     spotId: review.spotId,
     review: review.review,
-    stars: review.stars,
-    createdAt: review.createdAt,
-    updatedAt: review.updatedAt,
+    stars: parseInt(review.stars),
+    createdAt: review.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    updatedAt: review.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
     User: {
       id: review.User.id,
       firstName: review.User.firstName,
@@ -63,10 +63,10 @@ router.get('/current', requireAuth, async (req, res) => {
       city: review.Spot.city,
       state: review.Spot.state,
       country: review.Spot.country,
-      lat: review.Spot.lat,
-      lng: review.Spot.lng,
+      lat: parseFloat(review.Spot.lat),
+      lng: parseFloat(review.Spot.lng),
       name: review.Spot.name,
-      price: review.Spot.price,
+      price: parseFloat(review.Spot.price),
       previewImage: review.Spot.SpotImages.length > 0 ? review.Spot.SpotImages[0].url : null
     },
     ReviewImages: review.ReviewImages.map(image => ({
@@ -142,17 +142,6 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     });
   };
 
-  // const reviewToEdit = await Review.findOne({
-  //   where: {
-  //     id: reviewId,
-  //     userId: userId,
-  //   },
-  // });
-
-  // if (!reviewToEdit) {
-  //   return res.status(404).json({ message: "Review couldn't be found" });
-  // }
-
   currentReview.set({
     userId,
     spotId: currentReview.spotId,
@@ -162,9 +151,13 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 
   await currentReview.save();
 
-  // const editedReview = await Review.findByPk(reviewId);
+  const formattedReviewResponse = {
+    ...currentReview.toJSON(),
+    createdAt: currentReview.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    updatedAt: currentReview.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+  }
 
-  res.status(200).json(currentReview);
+  res.status(200).json(formattedReviewResponse);
 });
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
