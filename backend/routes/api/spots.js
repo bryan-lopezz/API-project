@@ -153,8 +153,8 @@ router.get('/', validateSpotQueryParams, async (req, res) => {
         },
       });
 
-      const formattedCreatedAt = spot.createdAt.toJSON().slice(0,10);
-      const formattedUpdatedAt = spot.updatedAt.toJSON().slice(0,10);
+      const formattedCreatedAt = spot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
+      const formattedUpdatedAt = spot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
 
       if (avgRatingArray[0]) {
         avgRating = avgRatingArray[0].get('avgRating');
@@ -206,8 +206,8 @@ router.get('/current', requireAuth, async(req, res) => {
       avgRating = parseFloat(avgRating);
       };
 
-      const formattedCreatedAt = spot.createdAt.toJSON().slice(0,10);
-      const formattedUpdatedAt = spot.updatedAt.toJSON().slice(0,10);
+      const formattedCreatedAt = spot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
+      const formattedUpdatedAt = spot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
 
       return {
         ...spot.toJSON(),
@@ -269,8 +269,8 @@ router.get('/:spotId', async (req, res) => {
     },
   });
 
-  const formattedCreatedAt = spot.createdAt.toJSON().slice(0,10);
-  const formattedUpdatedAt = spot.updatedAt.toJSON().slice(0,10);
+  const formattedCreatedAt = spot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
+  const formattedUpdatedAt = spot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
 
   const spotDetails = {
     id: spot.id,
@@ -317,10 +317,10 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     lat: parseFloat(newSpot.lat),
     lng: parseFloat(newSpot.lng),
     price: parseFloat(newSpot.price),
-    createdAt: newSpot.createdAt.toJSON().slice(0,10),
-    updatedAt: newSpot.updatedAt.toJSON().slice(0,10)
+    createdAt: newSpot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: newSpot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19)
   };
-  // console.log(newSpot.createdAt.toJSON().slice(0,10));
+
   res.status(201).json(newSpotResponse);
 });
 
@@ -391,8 +391,8 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
 
   await currentSpot.save();
 
-  const formattedCreatedAt = currentSpot.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19);
-  const formattedUpdatedAt = currentSpot.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19);
+  const formattedCreatedAt = currentSpot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
+  const formattedUpdatedAt = currentSpot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
 
   const currentSpotResponse = {
     ...currentSpot.toJSON(),
@@ -458,8 +458,8 @@ router.get('/:spotId/reviews', async (req, res) => {
     spotId: parseInt(review.spotId),
     review: review.review,
     stars: parseInt(review.stars),
-    createdAt: review.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: review.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: review.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: review.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
     User: {
       id: review.User.id,
       firstName: review.User.firstName,
@@ -511,8 +511,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     ...createSpotReview.toJSON(),
     userId: parseInt(userId),
     stars: parseInt(stars),
-    createdAt: createSpotReview.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: createSpotReview.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: createSpotReview.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: createSpotReview.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
   };
 
   res.status(201).json(createSpotReviewResponse);
@@ -565,8 +565,8 @@ router.get('/:spotId/bookings', requireAuth, async(req, res) => {
       userId,
       startDate: userBooking.startDate.toJSON().slice(0,10),
       endDate: userBooking.endDate.toJSON().slice(0,10),
-      createdAt: userBooking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-      updatedAt: userBooking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19)
+      createdAt: userBooking.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+      updatedAt: userBooking.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19)
   }));
 
   if (userId !== spot.ownerId) {
@@ -712,8 +712,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     ...newBooking.toJSON(),
     startDate: newBooking.startDate.toJSON().slice(0,10),
     endDate: newBooking.endDate.toJSON().slice(0,10),
-    createdAt: newBooking.createdAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
-    updatedAt: newBooking.updatedAt.toJSON().split('T').join(' at ').split('Z').join('').slice(0,19),
+    createdAt: newBooking.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
+    updatedAt: newBooking.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
   }
 
   return res.json(newBookingFormatted);
