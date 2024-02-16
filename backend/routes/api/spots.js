@@ -699,7 +699,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     };
   };
 
-  console.log(typeof startDate)
+ 
 
   const newBooking = await Booking.create({
     spotId,
