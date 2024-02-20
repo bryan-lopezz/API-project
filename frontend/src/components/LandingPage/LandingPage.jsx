@@ -17,8 +17,8 @@ const LandingPage = () => {
     <div className="spots-container">
       <h1>Landing Page</h1>
       {spots.map(spot => (
-        <div>
-          <img src="" alt={`${spot.name} image`} />
+        <div className="spot-container" key={spot.id}>
+          <img src="null" alt={`${spot.name} image`} />
         </div>
       ))}
     </div>
