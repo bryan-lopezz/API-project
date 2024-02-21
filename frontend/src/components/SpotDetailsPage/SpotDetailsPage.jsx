@@ -17,8 +17,18 @@ const SpotDetailsPage = () => {
     <>
       <h1>◕‿‿◕</h1>
       <div>
-         <h2>{spot.name}</h2>
-         <h3>{`${spot.city}, ${spot.state}, ${spot.country}`}</h3>
+        {spot && (
+          <>
+           <h2>{spot.name}</h2>
+           <h3>{`${spot.city}, ${spot.state}, ${spot.country}`}</h3>
+           <div>
+             {spot.SpotImages.map(image => (
+               <h3 key={image.id}>{image.url}</h3>
+               ))}
+           </div>
+           <img src="https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg" alt={`image of ${spot.name}`} />
+          </>
+        )}
       </div>
     </>
   )
