@@ -11,7 +11,7 @@ const SpotDetailsPage = () => {
 
   useEffect(() => {
     dispatch(getSpotDetails(spotId))
-  }, [dispatch]);
+  }, [dispatch, spotId]);
 
   const handleReserveClick = () => {
     alert("Feature coming soon!")

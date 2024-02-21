@@ -314,8 +314,8 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 
   const newSpotResponse = {
     ...newSpot.toJSON(),
-    lat: parseFloat(newSpot.lat),
-    lng: parseFloat(newSpot.lng),
+    lat: newSpot.lat? parseFloat(newSpot.lat) : null,
+    lng: newSpot.lng? parseFloat(newSpot.lng) : null,
     price: parseFloat(newSpot.price),
     createdAt: newSpot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19),
     updatedAt: newSpot.updatedAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19)
