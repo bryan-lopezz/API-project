@@ -41,7 +41,7 @@ const ManageSpots = () => {
                     </div>
                   </div>
                 </NavLink>
-                <button className="update-spot-button">Update</button>
+                <button className="update-spot-button" onClick={() => navigate(`/spots/${spot.id}/edit`)}>Update</button>
                 <button className="delete-spot-button">Delete</button>
               </div>
               ))}

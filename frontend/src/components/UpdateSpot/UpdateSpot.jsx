@@ -1,37 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { createNewSpot } from "../../store/spots";
-import { useNavigate } from 'react-router-dom';
+import { updateSpotThunk } from "../../store/spots";
+import { useNavigate, useParams } from 'react-router-dom';
 import { getSpotDetails } from "../../store/spots";
-import './CreateSpot.css'
+import './UpdateSpot.css'
 
-const CreateSpot = () => {
-  // console.log("🚀 ~ CreateSpot ~ spot:", spot)
+const UpdateSpot = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { spotId } = useParams();
+  const spot = useSelector(state => state.spots[spotId])
+  console.log("🚀 ~ UpdateSpot ~ spot:", spot)
   const currentUser = useSelector(state => state.session.user)
-  const [country, setCountry] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
+
+  const [country, setCountry] = useState(spot?.country);
+  const [address, setAddress] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [state, setState] = useState(spot?.state);
   const [lat, setLatitude] = useState();
   const [lng, setLongitude] = useState();
-  const [description, setDescription] = useState('');
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState(spot?.description);
+  const [name, setName] = useState(spot?.name);
+  const [price, setPrice] = useState(spot?.price);
 
-  const [previewImg, setPreviewImg] = useState('');
-  const [imageTwo, setImageTwo] = useState('');
-  const [imageThree, setImageThree] = useState('');
-  const [imageFour, setImageFour] = useState('');
-  const [imageFive, setImageFive] = useState('');
+  // const [previewImg, setPreviewImg] = useState('');
+  // const [imageTwo, setImageTwo] = useState('');
+  // const [imageThree, setImageThree] = useState('');
+  // const [imageFour, setImageFour] = useState('');
+  // const [imageFive, setImageFive] = useState('');
 
   const [validations, setValidations] = useState({});
 
   useEffect(() => {
     !currentUser && navigate('/');
-    
+
     const validationsObj = {};
 
     !country && (
@@ -50,7 +52,7 @@ const CreateSpot = () => {
       validationsObj.state = 'State is required.'
     )
 
-    description.length < 30 && (
+    description?.length < 30 && (
       validationsObj.description = 'Description should be at least 30 characters.'
     )
 
@@ -62,17 +64,17 @@ const CreateSpot = () => {
       validationsObj.price = 'Price is required.'
     )
 
-    !previewImg && (
-      validationsObj.previewImg = 'Please add a preview image.'
-    )
+    // !previewImg && (
+    //   validationsObj.previewImg = 'Please add a preview image.'
+    // )
 
     setValidations(validationsObj)
-  }, [country, address, city, state, description, name, price, previewImg])
+  }, [country, address, city, state, description, name, price])
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    const spot = {
+    const newSpot = {
       ownerId: currentUser.id,
       country,
       address,
@@ -85,23 +87,22 @@ const CreateSpot = () => {
       price,
     }
 
-    const newSpotImages = {
-      previewImg,
-      imageTwo,
-      imageThree,
-      imageFour,
-      imageFive
-    }
+    // const newSpotImages = {
+    //   previewImg,
+    //   imageTwo,
+    //   imageThree,
+    //   imageFour,
+    //   imageFive
+    // }
 
-    const newSpot = await dispatch(createNewSpot(spot, newSpotImages));
-    console.log("🚀 ~ handleOnSubmit ~ newSpot:", newSpot)
-    dispatch(getSpotDetails(newSpot))
-    navigate(`/spots/${newSpot.id}`)
+    const updatedSpot = await dispatch(updateSpotThunk(newSpot, spotId));
+    dispatch(getSpotDetails(updatedSpot))
+    navigate(`/spots/${updatedSpot.id}`)
   }
 
   return (
     <>
-      <h1>Create a New Spot</h1>
+      <h1>Update your Spot</h1>
       <section>
         <form className="create-spot-form" onSubmit={handleOnSubmit}>
           <section className="create-spot-section-1">
@@ -204,7 +205,7 @@ const CreateSpot = () => {
               onChange={(e) => setPrice(e.target.value)} />
           </section>
           {validations.price && <span className="validation-message">{validations.price}</span>}
-          <section className="create-spot-section-5">
+          {/* <section className="create-spot-section-5">
             <h3>Liven up your spot with photos</h3>
             <p>Submit a link to at least one photo to publish your spot.</p>
             <input
@@ -234,12 +235,12 @@ const CreateSpot = () => {
               placeholder="Image URL"
               value={imageFive}
               onChange={(e) => setImageFive(e.target.value)} />
-          </section>
-          <button type="submit">Create Spot</button>
+          </section> */}
+          <button type="submit">Update your Spot</button>
         </form>
       </section>
     </>
   )
 }
 
-export default CreateSpot;
+export default UpdateSpot;
