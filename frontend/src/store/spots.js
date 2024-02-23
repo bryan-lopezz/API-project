@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 const GET_SPOTS = 'spots/GET_SPOTS';
 const GET_SPOT = 'spots/GET_SPOT';
 const CREATE_SPOT = 'spots/CREATE_SPOT';
+const GET_CURRENT_USER_SPOTS = 'spots/GET_CURRENT_USER_SPOTS';
 
 const getSpots = (spots) => ({
   type: GET_SPOTS,
@@ -20,6 +21,11 @@ const createSpot = (spot) => ({
   spot
 })
 
+const getCurrentUserSpots = (spots) => ({
+  type: GET_CURRENT_USER_SPOTS,
+  spots
+})
+
 export const createNewSpot = (spot, images) => async dispatch => {
   console.log("🚀 ~ createNewSpot ~ images:", images)
   console.log('this is the spot:', spot)
@@ -29,7 +35,6 @@ export const createNewSpot = (spot, images) => async dispatch => {
   // imageUrls.shift();
 
   console.log("🚀 ~ createNewSpot ~ imageUrls:", imageUrls)
-  try {
     // console.log("🚀 ~ createNewSpot ~ body:", spot)
     const response = await csrfFetch('/api/spots', {
       method: "POST",
@@ -64,10 +69,6 @@ export const createNewSpot = (spot, images) => async dispatch => {
     await dispatch(createSpot(newSpot, newImages));
     return newSpot;
     }
-
-  } catch(error) {
-    throw error;
-  }
 };
 
 export const getAllSpots = () => async dispatch => {
@@ -75,8 +76,7 @@ export const getAllSpots = () => async dispatch => {
   });
 
   const data = await response.json();
-  // console.log("🚀 ~ getAllSpots ~ data:", data)
-
+  // console.log("🚀 ~ getAllSpots ~ data:", data
   dispatch(getSpots(data));
   return response;
 };
@@ -92,6 +92,15 @@ export const getSpotDetails = (spotId) => async dispatch => {
   return response;
 };
 
+export const getCurrentSpotsThunk = () => async dispatch => {
+  const response = await csrfFetch('/api/spots/current')
+  const userSpots = await response.json();
+
+  dispatch(getCurrentUserSpots(userSpots))
+  return userSpots;
+}
+
+
 function spotsReducer(state = {}, action) {
   switch(action.type) {
     case GET_SPOTS: {
@@ -105,6 +114,11 @@ function spotsReducer(state = {}, action) {
       // console.log("🚀 ~ action.spot:", action.spot)
       // console.log("🚀 ~ spotsReducer ~ newState:", newState)
       return newState;
+    }
+    case GET_CURRENT_USER_SPOTS: {
+      const newState = {}
+      action.spots.Spots.forEach(spot => newState[spot.id] = spot)
+      return newState
     }
     case CREATE_SPOT: {
       const newState = {...state, [action.spot.id]: action.spot};
