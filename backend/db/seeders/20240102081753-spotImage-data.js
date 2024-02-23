@@ -14,7 +14,7 @@ options.tableName = 'SpotImages'
 const spotImages = [
   {
     spotId: 1,
-    url: 'sampleUrl1',
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg",
     preview: true,
   },
   {

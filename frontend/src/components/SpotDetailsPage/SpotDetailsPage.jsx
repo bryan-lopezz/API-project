@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 const SpotDetailsPage = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
-  const spot = useSelector(state => state.spots[spotId]);
+  const spot = useSelector(state => state.spots);
+  const selectedSpot = spot[spotId];
   console.log("🚀 ~ SpotDetailsPage ~ spot:", spot)
 
   useEffect(() => {
@@ -21,26 +22,29 @@ const SpotDetailsPage = () => {
     <>
       <h1>◕‿‿◕</h1>
       <div>
-        {spot && (
+        {selectedSpot && (
           <>
             <div className="spot-details-image-container">
-             <h2>{spot.name}</h2>
-             <h3>{`${spot.city}, ${spot.state}, ${spot.country}`}</h3>
-             <img src="https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg" alt={`image of ${spot.name}`} />
-             <div>
-               {spot.SpotImages?.map(image => (
-                 <h3 key={image.id}>{image.url}</h3>
-                 ))}
+             <h2>{selectedSpot.name}</h2>
+             <h3>{`${selectedSpot.city}, ${selectedSpot.state}, ${selectedSpot.country}`}</h3>
+             <div className="spot-details-main-image-container">
+              <img className="spot-details-main-image" src={selectedSpot.SpotImages?.[0]?.url} alt={`main image of ${selectedSpot.name}`} />
+             </div>
+             <div className="spot-details-small-images-container">
+              <img className="spot-details-small-image" src={selectedSpot.SpotImages?.[1]?.url} alt="small image one" />
+              <img className="spot-details-small-image" src={selectedSpot.SpotImages?.[2]?.url} alt="small image two" />
+              <img className="spot-details-small-image" src={selectedSpot.SpotImages?.[3]?.url} alt="small image three" />
+              <img className="spot-details-small-image" src={selectedSpot.SpotImages?.[4]?.url} alt="small image four" />
              </div>
             </div>
             <div className="spot-details-info-container">
               <div className="spot-description-container">
-                <h3>{`Hosted by ${spot.Owner?.firstName}, ${spot.Owner?.lastName}`}</h3>
-                <p>{spot.description}</p>
+                <h3>{`Hosted by ${selectedSpot.Owner?.firstName}, ${selectedSpot.Owner?.lastName}`}</h3>
+                <p>{selectedSpot.description}</p>
               </div>
               <div className="spot-callout-container">
                 <div className="spot-callout-info">
-                  <span className="spot-callout-price">{`$${spot.price}`}</span>
+                  <span className="spot-callout-price">{`$${selectedSpot.price}`}</span>
                   <span className="night">night</span>
                   <button
                     className="spot-callout-button"

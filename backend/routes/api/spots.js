@@ -12,11 +12,10 @@ const validateSpot = [
   check('city').notEmpty().withMessage('City is required'),
   check('state').notEmpty().withMessage('State is required'),
   check('country').notEmpty().withMessage('Country is required'),
-  check('lat').isFloat({ min: -90, max: 90 }).withMessage('Latitude must be within -90 and 90'),
-  check('lng').isFloat({ min: -180, max: 180 }).withMessage('Longitude must be within -180 and 180'),
+  check('lat').optional().isFloat({ min: -90, max: 90 }).withMessage('Latitude must be within -90 and 90'),
+  check('lng').optional().isFloat({ min: -180, max: 180 }).withMessage('Longitude must be within -180 and 180'),
   check('name').isLength({ min: 1, max: 50 }).withMessage('Name must be less than 50 characters'),
-  check('name').notEmpty().withMessage('Name is required'),
-  check('description').notEmpty().withMessage('Description is required'),
+  check('description').notEmpty().isLength({min: 30, max: 300}).withMessage('Description must be at least 30 characters.'),
   check('price').isInt({min: 0}).withMessage('Price per day must be a positive number'),
   handleValidationErrors
 ];
