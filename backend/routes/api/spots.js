@@ -157,7 +157,7 @@ router.get('/', validateSpotQueryParams, async (req, res) => {
 
       if (avgRatingArray[0]) {
         avgRating = avgRatingArray[0].get('avgRating');
-        avgRating = parseFloat(avgRating);
+        // avgRating = parseFloat(avgRating);
       };
 
       return {
@@ -167,7 +167,7 @@ router.get('/', validateSpotQueryParams, async (req, res) => {
         price: parseFloat(spot.price),
         createdAt: formattedCreatedAt,
         updatedAt: formattedUpdatedAt,
-        avgRating: avgRating || "New",
+        avgRating: avgRating ? avgRating : null,
         previewImage: previewImage ? previewImage.url : "No preview",
       };
     })
@@ -215,7 +215,7 @@ router.get('/current', requireAuth, async(req, res) => {
         createdAt: formattedCreatedAt,
         updatedAt: formattedUpdatedAt,
         price: parseFloat(spot.price),
-        avgRating: avgRating || "New",
+        avgRating: avgRating ? avgRating : null,
         previewImage: previewImage ? previewImage.url : null,
       };
     })
@@ -286,7 +286,7 @@ router.get('/:spotId', async (req, res) => {
     createdAt: formattedCreatedAt,
     updatedAt: formattedUpdatedAt,
     numReviews: reviewsData.get('numReviews') ? parseFloat(reviewsData.get('numReviews')) : 0,
-    avgStarRating: reviewsData.get('avgStarRating') ? parseFloat(reviewsData.get('avgStarRating')) : "New",
+    avgStarRating: reviewsData.get('avgStarRating') ? parseFloat(reviewsData.get('avgStarRating')) : null,
     SpotImages: spot.SpotImages,
     Owner: owner ? owner.toJSON() : null,
   };

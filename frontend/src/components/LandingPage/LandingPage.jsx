@@ -17,11 +17,11 @@ const LandingPage = () => {
   return (
     <>
       <h1>◕‿‿◕ / \ ◕‿‿◕ </h1>
-      <section>
-        {spots.map(spot => (
-          <div key={spot.id}>
-            <NavLink to={`/spots/${spot.id}`}>
-              <div title={spot.name} className='spot-container'>
+      <section className="spot-tiles-container">
+        {spots && spots.map(spot => (
+          <div key={spot.id} className="tile-container">
+            <NavLink to={`/spots/${spot.id}`} >
+              <div title={spot.name}>
                 <img width='100' height='48' src={spot.previewImage} alt={`${spot.name} preview image`} />
                 <div className="listing-info">
                   <div className="location-details">
@@ -30,7 +30,7 @@ const LandingPage = () => {
                     <span></span>
                   </div>
                   <div className="rating">
-                    <h4>{spot.avgRating}</h4>
+                    <i className="fas fa-star">{`${spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}`}</i>
                   </div>
                 </div>
               </div>

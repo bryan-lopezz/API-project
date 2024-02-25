@@ -19,22 +19,27 @@ const spotImages = [
   },
   {
     spotId: 2,
-    url: 'sampleUrl2',
+    url: 'https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg',
     preview: true,
   },
   {
     spotId: 3,
-    url: 'sampleUrl3',
+    url: 'https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg',
     preview: true,
   },
   {
     spotId: 4,
-    url: 'sampleUrl4',
+    url: 'https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg',
     preview: true,
   },
   {
     spotId: 5,
-    url: 'sampleUrl5',
+    url: 'https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg',
+    preview: true,
+  },
+  {
+    spotId: 6,
+    url: 'https://res.cloudinary.com/lopez-projects/image/upload/v1708474380/stnsomcuuy3msytvwzyi.jpg',
     preview: true,
   },
 ];
@@ -47,7 +52,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['sampleUrl1', 'sampleUrl2', 'sampleUrl3', 'sampleUrl4', 'sampleUrl5'] }
+      id: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     });
   }
 };

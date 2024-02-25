@@ -39,7 +39,7 @@ const deleteSpot = (spotId) => ({
 })
 
 export const deleteSpotThunk = (spotId) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    await csrfFetch(`/api/spots/${spotId}`, {
     method: 'DELETE',
     // headers: { "Content-Type": "application/json" }
   })
@@ -137,7 +137,7 @@ export const getCurrentSpotsThunk = () => async dispatch => {
 function spotsReducer(state = {}, action) {
   switch(action.type) {
     case GET_SPOTS: {
-      // console.log("🚀 ~ action.spots:", action.spots)
+      console.log("🚀 ~ action.spots:", action.spots)
       const newStateObj = {};
       action.spots.Spots.forEach((spot) => newStateObj[spot.id] = spot)
       return newStateObj;
@@ -149,7 +149,7 @@ function spotsReducer(state = {}, action) {
       return newState;
     }
     case GET_CURRENT_USER_SPOTS: {
-      const newState = {}
+      const newState = {};
       action.spots.Spots.forEach(spot => newState[spot.id] = spot)
       return newState
     }

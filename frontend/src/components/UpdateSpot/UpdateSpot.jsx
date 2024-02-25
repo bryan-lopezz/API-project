@@ -69,7 +69,7 @@ const UpdateSpot = () => {
     // )
 
     setValidations(validationsObj)
-  }, [country, address, city, state, description, name, price])
+  }, [country, address, city, state, description, name, price, currentUser, navigate])
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();

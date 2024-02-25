@@ -8,23 +8,25 @@ function Navigation({ isLoaded }) {
   // console.log("🚀 ~ Navigation ~ sessionUser:", sessionUser)
 
   return (
-    <ul>
-      <li>
+    <header className='header-container'>
+      <div>
         <NavLink to="/">Home</NavLink>
-      </li>
+      </div>
+      <section className='top-right-buttons'>
       {sessionUser && (
-        <li>
+        <div>
           <NavLink className="create-new-spot-nav" to='/spots/new'>
             Create a New Spot
           </NavLink>
-        </li>
+        </div>
       )}
       {isLoaded && (
-        <li>
+        <div>
           <ProfileButton user={sessionUser} />
-        </li>
+        </div>
       )}
-    </ul>
+      </section>
+    </header>
   );
 }
 

@@ -30,8 +30,10 @@ const CreateSpot = () => {
   const [validations, setValidations] = useState({});
 
   useEffect(() => {
+    setLatitude();
+    setLongitude();
     !currentUser && navigate('/');
-    
+
     const validationsObj = {};
 
     !country && (
@@ -67,7 +69,7 @@ const CreateSpot = () => {
     )
 
     setValidations(validationsObj)
-  }, [country, address, city, state, description, name, price, previewImg])
+  }, [country, address, city, state, description, name, price, previewImg, currentUser, navigate])
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
