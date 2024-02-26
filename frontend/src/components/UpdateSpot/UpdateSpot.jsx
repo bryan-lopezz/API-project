@@ -17,8 +17,8 @@ const UpdateSpot = () => {
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
   const [state, setState] = useState(spot?.state);
-  const [lat, setLatitude] = useState();
-  const [lng, setLongitude] = useState();
+  // const [lat, setLatitude] = useState();
+  // const [lng, setLongitude] = useState();
   const [description, setDescription] = useState(spot?.description);
   const [name, setName] = useState(spot?.name);
   const [price, setPrice] = useState(spot?.price);
@@ -80,8 +80,8 @@ const UpdateSpot = () => {
       address,
       city,
       state,
-      lat,
-      lng,
+      lat: 0,
+      lng: 0,
       description,
       name,
       price,
