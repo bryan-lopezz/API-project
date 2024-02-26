@@ -53,9 +53,9 @@ function ProfileButton({ user }) {
       <button onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <span className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
+          <div>
             {/* <li>{user.username}</li> */}
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
@@ -65,7 +65,7 @@ function ProfileButton({ user }) {
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
-          </>
+          </div>
         ) : (
           <>
             <OpenModalMenuItem
@@ -80,7 +80,7 @@ function ProfileButton({ user }) {
             />
           </>
         )}
-      </ul>
+      </span>
     </>
   );
 }

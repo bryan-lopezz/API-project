@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton-bonus';
+import logo from './favicon.ico'
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -10,7 +11,12 @@ function Navigation({ isLoaded }) {
   return (
     <header className='header-container'>
       <div>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="home-nav">
+          <div className='home-button'>
+            <img src={logo} className='logo'/>
+            <h2> Rent A Site</h2>
+          </div>
+        </NavLink>
       </div>
       <section className='top-right-buttons'>
       {sessionUser && (

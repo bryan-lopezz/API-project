@@ -31,14 +31,14 @@ const ManageSpots = () => {
               <div key={spot.id}>
                 <NavLink to={`/spots/${spot.id}`}>
                   <div title={spot.name} className='spot-container'>
-                    <img width='100' height='48' src="https://res.cloudinary.com/lopez-projects/image/upload/v1708405213/cld-sample-4.jpg" alt={`${spot.name} image`} />
+                    <img src={spot.previewImage} alt={`${spot.name} image`} />
                     <div className="listing-info">
                       <div className="location-details">
                         <span>{`${spot.city}, ${spot.state}`}</span>
                         <p><span>{`$${spot.price}`}</span>night</p>
                       </div>
                       <div className="rating">
-                        <h4>{spot.avgRating}</h4>
+                        <h4>{spot?.avgRating?.toFixed(1)}</h4>
                       </div>
                     </div>
                   </div>

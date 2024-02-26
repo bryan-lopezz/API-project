@@ -15,30 +15,26 @@ const LandingPage = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <h1>◕‿‿◕ / \ ◕‿‿◕ </h1>
-      <section className="spot-tiles-container">
-        {spots && spots.map(spot => (
-          <div key={spot.id} className="tile-container">
-            <NavLink to={`/spots/${spot.id}`} >
-              <div title={spot.name}>
-                <img width='100' height='48' src={spot.previewImage} alt={`${spot.name} preview image`} />
-                <div className="listing-info">
-                  <div className="location-details">
-                    <h4>{`${spot.city}, ${spot.state}`}</h4>
-                    <h4>{`${spot.price}/night`}</h4>
-                    <span></span>
-                  </div>
-                  <div className="rating">
-                    <i className="fas fa-star">{`${spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}`}</i>
-                  </div>
+    <section className="spot-tiles-container">
+      {spots && spots.map(spot => (
+        <div key={spot.id} className="tile-container">
+          <NavLink to={`/spots/${spot.id}`} className='tile-link'>
+            <div title={spot.name}>
+              <img className="tile-image" src={spot.previewImage} alt={`${spot.name} preview image`} />
+              <div className="listing-info-container">
+                <div className="location-container">
+                  <div className="location">{`${spot.city}, ${spot.state}`}</div>
+                  <div className="price">{`$${spot.price}/night`}</div>
+                </div>
+                <div className="rating">
+                  <i className="fas fa-star">{`${spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}`}</i>
                 </div>
               </div>
-            </NavLink>
-          </div>
-          ))}
-          </section>
-    </>
+            </div>
+          </NavLink>
+        </div>
+        ))}
+        </section>
   )
 }
 

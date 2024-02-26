@@ -3,19 +3,26 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import { getReviewsThunk } from "../../store/reviews";
 import { selectedReviewsArray } from "../../store/reviews";
+import CreateReview from "../CreateReview";
+import DeleteReview from "../DeleteReview";
 
 const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const reviewsState = useSelector(selectedReviewsArray)
+  // console.log("🚀 ~ GetSpotReviews ~ reviewsState:", reviewsState)
   const reviews = [...reviewsState].reverse();
   const sessionUser = useSelector(state => state.session.user?.id)
-  const spotOwner = useSelector(state => state.spots.ownerid);
-  console.log("🚀 ~ GetSpotReviews ~ reviews:", reviews)
+  // console.log("🚀 ~ GetSpotReviews ~ sessionUser:", sessionUser)
+  const spot = useSelector(state => state.spots?.[spotId]);
+  // console.log("🚀 ~ GetSpotReviews ~ spot:", spot)
+  // console.log("🚀 ~ GetSpotReviews ~ reviews:", reviews)
 
   // if(!reviews) {
   //   return
   // };
+
+  // const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   useEffect(() => {
     dispatch(getReviewsThunk(spotId))
@@ -36,16 +43,14 @@ const GetSpotReviews = () => {
     'December'
   ];
 
-  reviews.forEach(review => {
-    console.log(months[new Date(review.createdAt).getMonth()])
-  })
-
-
-
   return (
       <section>
-        {!reviews.length && sessionUser && sessionUser !== spotOwner && (
-          <span>Be the first to post a review!</span>
+        {/* {sessionUser !== spot?.ownerId && ( */}
+          <CreateReview />
+
+        {/* // )} */}
+        {!reviews.length && sessionUser && sessionUser !== spot?.Owner?.id && (
+          <div>Be the first to post a review!</div>
         )}
         {
           reviews.map(review => (
@@ -55,6 +60,9 @@ const GetSpotReviews = () => {
                 <span>{`${months[new Date(review.createdAt).getMonth()]} ${new Date(review.createdAt).getFullYear()}`}</span>
               </div>
               <div className="review-description">{review.review}</div>
+              {review.userId === sessionUser && (
+                <DeleteReview reviewId={review.id} spotId={spotId}/>
+              )}
             </div>
           )
         )}
