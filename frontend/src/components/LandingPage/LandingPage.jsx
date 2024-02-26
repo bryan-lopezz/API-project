@@ -27,7 +27,7 @@ const LandingPage = () => {
                   <div className="price">{`$${spot.price}/night`}</div>
                 </div>
                 <div className="rating">
-                  <i className="fas fa-star">{`${spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}`}</i>
+                  <i className="fas fa-star">{`${spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}`}</i>
                 </div>
               </div>
             </div>
