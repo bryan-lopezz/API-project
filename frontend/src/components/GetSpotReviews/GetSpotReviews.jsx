@@ -10,19 +10,9 @@ const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const reviewsState = useSelector(selectedReviewsArray)
-  // console.log("🚀 ~ GetSpotReviews ~ reviewsState:", reviewsState)
   const reviews = [...reviewsState].reverse();
   const sessionUser = useSelector(state => state.session.user?.id)
-  // console.log("🚀 ~ GetSpotReviews ~ sessionUser:", sessionUser)
   const spot = useSelector(state => state.spots?.[spotId]);
-  // console.log("🚀 ~ GetSpotReviews ~ spot:", spot)
-  // console.log("🚀 ~ GetSpotReviews ~ reviews:", reviews)
-
-  // if(!reviews) {
-  //   return
-  // };
-
-  // const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   useEffect(() => {
     dispatch(getReviewsThunk(spotId))
@@ -45,10 +35,6 @@ const GetSpotReviews = () => {
 
   return (
       <section>
-        {/* {sessionUser !== spot?.ownerId && ( */}
-          <CreateReview />
-
-        {/* // )} */}
         {!reviews.length && sessionUser && sessionUser !== spot?.Owner?.id && (
           <div>Be the first to post a review!</div>
         )}

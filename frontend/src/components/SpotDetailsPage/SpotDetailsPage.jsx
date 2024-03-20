@@ -3,12 +3,19 @@ import { useEffect } from "react";
 import { getSpotDetails } from "../../store/spots";
 import { useParams } from "react-router-dom";
 import GetSpotReviews from "../GetSpotReviews";
+import CreateReview from "../CreateReview";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import { selectedReviewsArray } from "../../store/reviews";
 
 const SpotDetailsPage = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const spot = useSelector(state => state.spots);
   const selectedSpot = spot[spotId];
+  const reviewsState = useSelector(selectedReviewsArray);
+  const sessionUser = useSelector(state => state.session.user?.id);
+
+
   console.log("🚀 ~ SpotDetailsPage ~ spot:", spot)
 
   useEffect(() => {
@@ -70,6 +77,12 @@ const SpotDetailsPage = () => {
             </section>
             <section className="reviews-container">
               <h1><i className="fa-solid fa-star"></i><span className="rating-review-2"> {reviews()}</span></h1>
+              {!reviewsState.length && sessionUser && sessionUser !== selectedSpot?.ownerId && (
+                <OpenModalButton
+                  modalComponent={<CreateReview />}
+                  buttonText={'Post Your Review'}
+                />
+              )}
               <GetSpotReviews />
             </section>
           </section>
