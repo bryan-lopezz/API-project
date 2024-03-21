@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { selectedReviewsArray } from "../../store/reviews";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { FaStar } from 'react-icons/fa';
 import { createReviewThunk } from "../../store/reviews";
+import { getSpotDetails } from "../../store/spots";
 import './CreateReview.css'
 
 
@@ -26,6 +26,7 @@ const CreateReview = () => {
   const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   useEffect(() => {
+
     const validationsObj = {};
 
     if (review.length < 10) {
@@ -59,6 +60,7 @@ const CreateReview = () => {
     }
 
     await dispatch(createReviewThunk(newReview, spotId))
+    await dispatch(getSpotDetails(spotId))
     closeModal();
     setReview('');
     setStars(0);
