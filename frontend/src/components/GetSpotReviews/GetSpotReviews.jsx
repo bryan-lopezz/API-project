@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import { getReviewsThunk } from "../../store/reviews";
 import { selectedReviewsArray } from "../../store/reviews";
-import CreateReview from "../CreateReview";
 import DeleteReview from "../DeleteReview";
 
 const GetSpotReviews = () => {

@@ -6,6 +6,7 @@ import GetSpotReviews from "../GetSpotReviews";
 import CreateReview from "../CreateReview";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { selectedReviewsArray } from "../../store/reviews";
+import './SpotDetailsPage.css'
 
 const SpotDetailsPage = () => {
   const { spotId } = useParams();
@@ -44,7 +45,7 @@ const SpotDetailsPage = () => {
           <section className="body">
             <section className="spot-header">
                <h2>{selectedSpot.name}</h2>
-               <h3>{`${selectedSpot.city}, ${selectedSpot.state}, ${selectedSpot.country}`}</h3>
+               <span className="header-location">{`${selectedSpot.city}, ${selectedSpot.state}, ${selectedSpot.country}`}</span>
             </section>
             <section className="image-container">
                <div className="main-image-container">
@@ -59,7 +60,7 @@ const SpotDetailsPage = () => {
             </section>
             <section className="info-container">
               <div className="description-container">
-                <h3>{`Hosted by ${selectedSpot.Owner?.firstName}, ${selectedSpot.Owner?.lastName}`}</h3>
+                <h2>{`Hosted by ${selectedSpot.Owner?.firstName}, ${selectedSpot.Owner?.lastName}`}</h2>
                 <p>{selectedSpot.description}</p>
               </div>
               <div className="spot-callout-container">
