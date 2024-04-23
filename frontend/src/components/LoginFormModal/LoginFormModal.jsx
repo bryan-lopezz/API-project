@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -9,6 +9,7 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [validations, setValidations] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -24,32 +25,52 @@ function LoginFormModal() {
       });
   };
 
+  useEffect(() => {
+    const validationsObj = {};
+
+    if(String(credential).length < 4) {
+      validationsObj.credential = 'Please provide a username with at least 4 characters.'
+    }
+
+    if(String(password).length < 6) {
+      validationsObj.password = 'Password must be 6 characters or more.'
+    }
+
+    setValidations(validationsObj)
+
+  }, [credential, password])
+
+
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='login-container'>
+      <h2 className='login-header'>Log in</h2>
+      <form className='login-form-container' onSubmit={handleSubmit}>
         <label>
-          Username or Email
           <input
             type="text"
+            className='input-textbox'
+            placeholder='Username or Email'
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
         <label>
-          Password
           <input
             type="password"
+            className='input-textbox'
+            placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+        <div className='login-button-container'>
+          <button className='login-button' type="submit" disabled={Object.values(validations).length}>Log in</button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 
