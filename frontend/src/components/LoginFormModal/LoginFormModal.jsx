@@ -16,11 +16,12 @@ function LoginFormModal() {
     e.preventDefault();
     setErrors({});
     return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+    .then(closeModal)
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+        // console.log("🚀 ~ LoginFormModal ~ errors:", errors)
         }
       });
   };
@@ -43,9 +44,13 @@ function LoginFormModal() {
 
   return (
     <div className='login-container'>
-      <h2 className='login-header'>Log in</h2>
+      <h2 className='login-header'>Log In</h2>
       <form className='login-form-container' onSubmit={handleSubmit}>
-        <label>
+        {errors.credential && (
+          // console.log(errors.credential)
+          <span className='error-message'>{errors.credential}</span>
+        )}
+        <label className=''>
           <input
             type="text"
             className='input-textbox'
@@ -65,7 +70,6 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
         <div className='login-button-container'>
           <button className='login-button' type="submit" disabled={Object.values(validations).length}>Log in</button>
         </div>
