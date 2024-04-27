@@ -26,6 +26,12 @@ function LoginFormModal() {
       });
   };
 
+  const demoUser = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.login({credential: 'Demo-lition', password: 'password'}))
+    .then(closeModal)
+  }
+
   useEffect(() => {
     const validationsObj = {};
 
@@ -73,6 +79,7 @@ function LoginFormModal() {
         <div className='login-button-container'>
           <button className='login-button' type="submit" disabled={Object.values(validations).length}>Log in</button>
         </div>
+        <button className='demo-user-button' onClick={demoUser}>Demo User</button>
       </form>
     </div>
   );

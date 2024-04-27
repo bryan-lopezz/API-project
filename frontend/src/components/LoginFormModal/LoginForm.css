@@ -53,3 +53,11 @@
   color: red;
   padding: 4px;
 }
+
+.demo-user-button {
+  border: none;
+  text-decoration: underline;
+  background: none;
+  color: #b4301c;
+  cursor: pointer;
+}
