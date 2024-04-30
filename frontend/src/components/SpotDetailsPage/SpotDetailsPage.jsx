@@ -52,28 +52,32 @@ const SpotDetailsPage = () => {
                 <img className="spot-details-main-image" src={selectedSpot.SpotImages?.[0]?.url} alt={`main image of ${selectedSpot.name}`} />
                </div>
                <div className="small-images-container">
-                <img className="small-image" src={selectedSpot.SpotImages?.[1]?.url} alt="small image one" />
-                <img className="small-image" src={selectedSpot.SpotImages?.[2]?.url} alt="small image two" />
-                <img className="small-image" src={selectedSpot.SpotImages?.[3]?.url} alt="small image three" />
-                <img className="small-image" src={selectedSpot.SpotImages?.[4]?.url} alt="small image four" />
+                <img className="small-images" src={selectedSpot.SpotImages?.[1]?.url} alt="small image one" />
+                <img className="small-image-edge-one small-images" src={selectedSpot.SpotImages?.[2]?.url} alt="small image two" />
+                <img className="small-images" src={selectedSpot.SpotImages?.[3]?.url} alt="small image three" />
+                <img className="small-image-edge-two small-images" src={selectedSpot.SpotImages?.[4]?.url} alt="small image four" />
              </div>
             </section>
             <section className="info-container">
               <div className="description-container">
-                <h2>{`Hosted by ${selectedSpot.Owner?.firstName}, ${selectedSpot.Owner?.lastName}`}</h2>
+                <h2 className="host-name">{`Hosted by ${selectedSpot.Owner?.firstName}, ${selectedSpot.Owner?.lastName}`}</h2>
                 <p>{selectedSpot.description}</p>
               </div>
               <div className="spot-callout-container">
                 <div className="spot-callout-info">
-                  <p><span className="spot-callout-price">{`$${selectedSpot.price}`}</span><span className="price-night">night</span></p>
-                  <p><i className="fa-solid fa-star"></i><span className="rating-review"> {reviews()}</span></p>
+                  <div className="spot-callout-left">
+                    <p className="spot-price"><span className="spot-callout-price">{`$${selectedSpot.price}`}</span><span className="price-night">night</span></p>
+                  </div>
+                  <div className="spot-callout-right">
+                    <p className="star-and-review"><i className="fa-solid fa-star"></i><span className="rating-review"> {reviews()}</span></p>
+                  </div>
+                </div>
                   <button
                     className="reserve-button"
                     onClick={handleReserveClick}
                     >
                       Reserve
                   </button>
-                </div>
               </div>
             </section>
             <section className="reviews-container">
