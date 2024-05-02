@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getReviewsThunk } from "../../store/reviews";
 import { selectedReviewsArray } from "../../store/reviews";
 import DeleteReview from "../DeleteReview";
+import './SpotReviews.css'
 
 const GetSpotReviews = () => {
   const dispatch = useDispatch();
@@ -39,10 +40,10 @@ const GetSpotReviews = () => {
         )}
         {
           reviews.map(review => (
-            <div key={review.id}>
+            <div className="review-post" key={review.id}>
               <div className="name-date">
-                <div>{review.User?.firstName}</div>
-                <span>{`${months[new Date(review.createdAt).getMonth()]} ${new Date(review.createdAt).getFullYear()}`}</span>
+                <div className="first-name">{review.User?.firstName}</div>
+                <span className="date-posted">{`${months[new Date(review.createdAt).getMonth()]} ${new Date(review.createdAt).getFullYear()}`}</span>
               </div>
               <div className="review-description">{review.review}</div>
               {review.userId === sessionUser && (

@@ -17,8 +17,6 @@ const SpotDetailsPage = () => {
   const sessionUser = useSelector(state => state.session.user?.id);
 
 
-  console.log("🚀 ~ SpotDetailsPage ~ spot:", spot)
-
   useEffect(() => {
     dispatch(getSpotDetails(spotId))
   }, [dispatch, spotId]);
@@ -37,6 +35,10 @@ const SpotDetailsPage = () => {
     return 'New';
   }
 
+  const findUserReview =
+  reviewsState.some((review) =>
+    review.User?.id === sessionUser
+  );
 
   return (
     <>
@@ -81,8 +83,8 @@ const SpotDetailsPage = () => {
               </div>
             </section>
             <section className="reviews-container">
-              <h1><i className="fa-solid fa-star"></i><span className="rating-review-2"> {reviews()}</span></h1>
-              {!reviewsState.length && sessionUser && sessionUser !== selectedSpot?.ownerId && (
+              <p className="star-reviews"><i className="fa-solid fa-star" style={{fontSize: 'x-large'}}></i><span className="rating-review-2" style={{fontSize: 'x-large', fontWeight: 'bold'}}> {reviews()}</span></p>
+              {!findUserReview && sessionUser && sessionUser !== selectedSpot?.ownerId && (
                 <OpenModalButton
                   modalComponent={<CreateReview />}
                   buttonText={'Post Your Review'}

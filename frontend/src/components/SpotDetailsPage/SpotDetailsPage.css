@@ -133,6 +133,11 @@ body {
   cursor: pointer;
 }
 
+.star-reviews {
+  /* border: 2px solid orange; */
+  padding-bottom: 14px;
+}
+
 /* .reserve-button-container {
   border: 2px solid purple;
 
