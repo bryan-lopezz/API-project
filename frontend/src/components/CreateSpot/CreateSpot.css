@@ -1,4 +1,64 @@
+body {
+  background-color:white;
+}
+
 .validation-message {
   color: red;
 }
 
+.create-spot-form {
+  /* border: 2px solid rebeccapurple; */
+  /* display: flex;
+  flex-direction: column; */
+  margin: auto;
+  width: 500px;
+  padding-top: 30px;
+}
+
+.section-line {
+  padding-bottom: 15px;
+  border-bottom: 1.5px solid black;
+
+}
+
+.where-located {
+  margin-bottom: 0px;
+}
+
+.guests-will-only {
+  margin-top: 8px;
+}
+
+.country-address {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5px;
+}
+
+span {
+  padding-bottom: 3px;
+}
+
+.city-state-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.comma-separator {
+  padding-right: 5px;
+}
+
+.city-textbox {
+  width: 325px;
+}
+
+textarea {
+  resize: none;
+  width: 495px;
+  height: 150px;
+  font-family: inherit;
+}
+
+input {
+  /* appearance: none; */
+}
