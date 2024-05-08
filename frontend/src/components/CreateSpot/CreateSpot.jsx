@@ -200,6 +200,7 @@ const CreateSpot = () => {
               what makes your place special.
             </p>
             <input
+              className="spot-name-input"
               type="text"
               placeholder="Name of your spot"
               value={name}
@@ -213,7 +214,9 @@ const CreateSpot = () => {
               Competitive pricing can help your listing stand out and rank
               higher in search results.
             </p>
+            <span>$ </span>
             <input
+              className="price-input"
               type="number"
               placeholder="Price per night (USD)"
               value={price}
@@ -222,41 +225,46 @@ const CreateSpot = () => {
           </div>
           {/* {validations.price && <span className="validation-message">{validations.price}</span>} */}
           <div className="create-spot-section-5 section-line">
-            <h3>Liven up your spot with photos</h3>
+            <h3 className="liven-up">Liven up your spot with photos</h3>
             <p>Submit a link to at least one photo to publish your spot.</p>
-            <input
-              type="text"
-              placeholder="Preview Image URL"
-              value={previewImg}
-              onChange={(e) => setPreviewImg(e.target.value)}
-            />
-            {/* {validations.previewImg && <span className="validation-message">{validations.previewImg}</span>} */}
-            <input
-              type="text"
-              placeholder="Image URL"
-              value={imageTwo}
-              onChange={(e) => setImageTwo(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Image URL"
-              value={imageThree}
-              onChange={(e) => setImageThree(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Image URL"
-              value={imageFour}
-              onChange={(e) => setImageFour(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Image URL"
-              value={imageFive}
-              onChange={(e) => setImageFive(e.target.value)}
-            />
+            <div className="image-inputs">
+              <input
+                type="text"
+                placeholder="Preview Image URL"
+                value={previewImg}
+                onChange={(e) => setPreviewImg(e.target.value)}
+              />
+              {/* {validations.previewImg && <span className="validation-message">{validations.previewImg}</span>} */}
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={imageTwo}
+                onChange={(e) => setImageTwo(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={imageThree}
+                onChange={(e) => setImageThree(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={imageFour}
+                onChange={(e) => setImageFour(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={imageFive}
+                onChange={(e) => setImageFive(e.target.value)}
+              />
+
+            </div>
           </div>
-          <button type="submit">Create Spot</button>
+          <div className="create-button-container">
+            <button className="create-button" type="submit">Create Spot</button>
+          </div>
         </form>
       )}
     </div>
