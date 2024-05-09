@@ -1,4 +1,103 @@
+body {
+  background-color:white;
+}
+
 .validation-message {
   color: red;
 }
 
+.create-spot-form {
+  /* border: 2px solid rebeccapurple; */
+  /* display: flex;
+  flex-direction: column; */
+  margin: auto;
+  width: 500px;
+  padding-top: 30px;
+}
+
+.section-line {
+  padding-bottom: 15px;
+  border-bottom: 1.5px solid black;
+
+}
+
+.where-located {
+  margin-bottom: 0px;
+}
+
+.guests-will-only {
+  margin-top: 8px;
+}
+
+.country-address {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5px;
+}
+
+span {
+  padding-bottom: 3px;
+}
+
+.city-state-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.comma-separator {
+  padding-right: 5px;
+}
+
+.city-textbox {
+  width: 325px;
+}
+
+textarea {
+  resize: none;
+  width: 495px;
+  height: 150px;
+  font-family: inherit;
+}
+
+input {
+  appearance: none;
+}
+
+.spot-name-input {
+  width: 492px;
+}
+
+.price-input {
+  width: 478px;
+}
+
+.create-spot-section-5 {
+  display: flex;
+  flex-direction: column;
+}
+
+.liven-up {
+  margin-top: 10px;
+  margin-bottom: -8px;
+}
+
+.image-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.create-button-container {
+  display: flex;
+  /* border: 1px solid red; */
+  justify-content: center;
+  padding-top: 24px;
+}
+
+.create-button {
+  color: white;
+  background-color: #fd4556;
+  box-shadow: 3px 3px 2px black;
+  cursor: pointer;
+  border: 1px solid black;
+}

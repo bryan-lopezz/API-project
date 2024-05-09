@@ -3,26 +3,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import { getReviewsThunk } from "../../store/reviews";
 import { selectedReviewsArray } from "../../store/reviews";
-import CreateReview from "../CreateReview";
 import DeleteReview from "../DeleteReview";
+import './SpotReviews.css'
 
 const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const reviewsState = useSelector(selectedReviewsArray)
-  // console.log("🚀 ~ GetSpotReviews ~ reviewsState:", reviewsState)
   const reviews = [...reviewsState].reverse();
   const sessionUser = useSelector(state => state.session.user?.id)
-  // console.log("🚀 ~ GetSpotReviews ~ sessionUser:", sessionUser)
   const spot = useSelector(state => state.spots?.[spotId]);
-  // console.log("🚀 ~ GetSpotReviews ~ spot:", spot)
-  // console.log("🚀 ~ GetSpotReviews ~ reviews:", reviews)
-
-  // if(!reviews) {
-  //   return
-  // };
-
-  // const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   useEffect(() => {
     dispatch(getReviewsThunk(spotId))
@@ -45,19 +35,15 @@ const GetSpotReviews = () => {
 
   return (
       <section>
-        {/* {sessionUser !== spot?.ownerId && ( */}
-          <CreateReview />
-
-        {/* // )} */}
         {!reviews.length && sessionUser && sessionUser !== spot?.Owner?.id && (
           <div>Be the first to post a review!</div>
         )}
         {
           reviews.map(review => (
-            <div key={review.id}>
+            <div className="review-post" key={review.id}>
               <div className="name-date">
-                <div>{review.User?.firstName}</div>
-                <span>{`${months[new Date(review.createdAt).getMonth()]} ${new Date(review.createdAt).getFullYear()}`}</span>
+                <div className="first-name">{review.User?.firstName}</div>
+                <span className="date-posted">{`${months[new Date(review.createdAt).getMonth()]} ${new Date(review.createdAt).getFullYear()}`}</span>
               </div>
               <div className="review-description">{review.review}</div>
               {review.userId === sessionUser && (

@@ -1,0 +1,18 @@
+
+.review-post {
+  /* border: 2px solid orange; */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 25px;
+}
+
+.first-name {
+  font-weight: bold;
+  font-size: 21.5px;
+  padding-bottom: 4px;
+}
+
+.date-posted {
+  color: rgb(118, 118, 118);
+}
