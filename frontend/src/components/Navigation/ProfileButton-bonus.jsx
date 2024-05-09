@@ -4,7 +4,8 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -51,21 +52,21 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className='profile-button' onClick={toggleMenu}>
-        <i className='fas fa-bars' />
+        <i className='fas fa-bars profile-bars' />
         <i className="fas fa-user-circle" />
       </button>
-      <span className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
           <div>
             {/* <li>{user.username}</li> */}
-            <li>Hello, {user.firstName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={manageSpots}>Manage Spots</button>
-            </li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
+            <div className='profile-text'>Hello, {user.firstName}</div>
+            <div className='profile-text'>{user.email}</div>
+            <div>
+              <NavLink className="manage-spots" onClick={manageSpots}>Manage Spots</NavLink>
+            </div>
+            <div>
+              <button className='log-out' onClick={logout}>Log Out</button>
+            </div>
           </div>
         ) : (
           <>
@@ -81,7 +82,7 @@ function ProfileButton({ user }) {
             />
           </>
         )}
-      </span>
+      </div>
     </>
   );
 }
