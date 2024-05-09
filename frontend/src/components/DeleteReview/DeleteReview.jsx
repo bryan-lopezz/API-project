@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-// import { selectedReviewsArray } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { deleteReviewThunk, getReviewsThunk } from "../../store/reviews";
+import { getSpotDetails } from "../../store/spots";
 import { useModal } from "../../context/Modal";
 import { useEffect } from "react";
 
@@ -20,6 +20,8 @@ const DeleteReview = ({reviewId, spotId}) => {
   const deleteReview = async (e) => {
     e.preventDefault();
     await dispatch(deleteReviewThunk(reviewId))
+    await dispatch(getSpotDetails(spotId))
+
     closeModal();
   };
 

@@ -20,16 +20,16 @@ function Navigation({ isLoaded }) {
       </div>
       <section className='top-right-buttons'>
       {sessionUser && (
-        <div>
+        <span>
           <NavLink className="create-new-spot-nav" to='/spots/new'>
             Create a New Spot
           </NavLink>
-        </div>
+        </span>
       )}
       {isLoaded && (
-        <div>
+        <span>
           <ProfileButton user={sessionUser} />
-        </div>
+        </span>
       )}
       </section>
     </header>

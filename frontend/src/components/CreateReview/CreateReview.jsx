@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { selectedReviewsArray } from "../../store/reviews";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { FaStar } from 'react-icons/fa';
 import { createReviewThunk } from "../../store/reviews";
+import { getSpotDetails } from "../../store/spots";
 import './CreateReview.css'
 
 
@@ -23,27 +23,33 @@ const CreateReview = () => {
   const [stars, setStars] = useState(0);
   const [validations, setValidations] = useState({});
   const starRatings = [1, 2, 3, 4, 5];
+  const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   useEffect(() => {
+
     const validationsObj = {};
 
-    review.length < 10 && (
-      validationsObj.review = 'Please write at least 10 characters'
-    )
+    if (review.length < 10) {
+      validationsObj.review = 'Please write at least 10 characters';
+    } else {
+      delete validationsObj.review;
+    }
 
-    !stars && (
-      validationsObj.stars = 'Please select a star rating'
-    )
+    if (!stars) {
+      validationsObj.stars = 'Please select a star rating';
+    } else {
+      delete validationsObj.stars;
+    }
 
     setValidations(validationsObj);
   }, [review, stars]);
 
-  const reset = () => {
-    setReview('');
-    setHover(null);
-    setStars(null);
-    setValidations({});
-  }
+  useEffect(() => {
+    return () => {
+      setReview('');
+      setStars(0);
+    };
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -54,27 +60,24 @@ const CreateReview = () => {
     }
 
     await dispatch(createReviewThunk(newReview, spotId))
+    await dispatch(getSpotDetails(spotId))
     closeModal();
-    reset();
+    setReview('');
+    setStars(0);
   }
+
   // check if logged in
   // compare the spot owners id to the session user id
   // if not spot owner check the list of existing reviews
   // if reviews array does not include user id, show post review button
 
-  const reviewed = reviews?.find(review => review.userId === sessionUser);
 
   return (
     <>
       {sessionUser && (sessionUser !== spotOwner) && !reviewed && (
-        <OpenModalButton
-          className="post-review-button"
-          buttonText="Post Your Review"
-          modalComponent={
             <form onSubmit={onSubmit}>
               <h2>How was your stay?</h2>
               <textarea
-                type='text'
                 placeholder="Leave your review here..."
                 minLength={10}
                 value={review}
@@ -87,9 +90,8 @@ const CreateReview = () => {
                   <label key={rating}>
                     <input
                       type="radio"
-                      name="rating"
                       value={rating}
-                      onClick={() => setStars(rating)}
+                      onChange={() => setStars(rating)}
                       />
                       <FaStar
                         className="stars"
@@ -103,14 +105,12 @@ const CreateReview = () => {
                  Stars
                </div>
                <button
-               disabled={Object.values(validations).length}
+               disabled={Object.values(validations).length > 0}
                className="submit-review"
                type="submit" >
                 Submit Your Review
                </button>
             </form>
-          }
-         />
       )}
     </>
   )

@@ -6,7 +6,7 @@ const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
 const getReviews = (reviews) => {
-  console.log("🚀 ~ getReviews ~ reviews:", reviews)
+  // console.log("🚀 ~ getReviews ~ reviews:", reviews)
   return {
     type: GET_REVIEWS,
     reviews

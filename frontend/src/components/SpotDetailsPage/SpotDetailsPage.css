@@ -1,0 +1,144 @@
+body {
+  margin: 70px;
+  padding-top: 20px;
+}
+
+.spot-header {
+  /* border: 3px solid orange; */
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+.image-container {
+  display: grid;
+  /* border: 3px solid purple; */
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  max-height: 500px;
+}
+
+.spot-details-main-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  border-radius: 14px 0px 0px 14px;
+}
+
+.small-images-container {
+  /* border: 2px solid blue; */
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  gap: 5px;
+  max-height: 500px;
+}
+
+.small-images {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+
+.small-image-edge-one {
+  border-radius: 0px 14px 0px 0px;
+}
+
+.small-image-edge-two {
+  border-radius: 0px 0px 14px 0px;
+}
+
+.info-container {
+  /* border: 2px solid orange; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  border-bottom: 1px solid black;
+  padding-bottom: 20px;
+}
+
+.host-name {
+  margin-top: 0px;
+}
+
+.description-container {
+  /* border: 2px solid rgb(18, 48, 221); */
+  padding-right: 30px;
+}
+
+.spot-callout-container {
+  border: 3px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px;
+  height: 80px;
+}
+
+.spot-callout-info {
+  /* border: 2px solid red; */
+  margin-top: -15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.spot-callout-left {
+  /* border: 2px solid green; */
+  display: flex;
+  align-items: center;
+  padding-right: 160px;
+  /* width: 100%; */
+}
+
+.spot-price {
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+.spot-callout-price {
+  padding-right: 3px;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.spot-callout-right {
+  padding-top: 10px;
+}
+
+.rating-review {
+  padding-left: 2px;
+  text-wrap: nowrap;
+}
+
+.star-and-review {
+  text-wrap: nowrap;
+}
+
+.reserve-button {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  /* padding-bottom: ; */
+  border: 1px solid rgb(162, 54, 54);
+  box-shadow: 3px 3px 2px black;
+  background-color: rgba(224, 47, 47, 0.858);
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.star-reviews {
+  /* border: 2px solid orange; */
+  padding-bottom: 14px;
+}
+
+/* .reserve-button-container {
+  border: 2px solid purple;
+
+} */

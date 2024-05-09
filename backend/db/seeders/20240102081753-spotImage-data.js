@@ -18,6 +18,26 @@ const spotImages = [
     preview: true,
   },
   {
+    spotId: 1,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    preview: true,
+  },
+  {
+    spotId: 1,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    preview: true,
+  },
+  {
+    spotId: 1,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    preview: true,
+  },
+  {
+    spotId: 1,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    preview: true,
+  },
+  {
     spotId: 2,
     url: 'https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi',
     preview: true,
@@ -103,7 +123,7 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       id: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10,
-        11, 12, 13, 14, 15, 16
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
       ] }
     });
   }
