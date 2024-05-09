@@ -234,7 +234,7 @@ const CreateSpot = () => {
                 value={previewImg}
                 onChange={(e) => setPreviewImg(e.target.value)}
               />
-              {/* {validations.previewImg && <span className="validation-message">{validations.previewImg}</span>} */}
+              {validations.previewImg && <span className="validation-message">{validations.previewImg}</span>}
               <input
                 type="text"
                 placeholder="Image URL"
