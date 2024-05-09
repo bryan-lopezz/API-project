@@ -96,7 +96,7 @@ input {
 
 .create-button {
   color: white;
-  background-color: rgb(241, 118, 118);
+  background-color: #fd4556;
   box-shadow: 3px 3px 2px black;
   cursor: pointer;
   border: 1px solid black;

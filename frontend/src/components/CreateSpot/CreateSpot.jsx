@@ -99,7 +99,7 @@ const CreateSpot = () => {
   };
 
   return (
-    <div>
+    <>
       {currentUser && (
         <form className="create-spot-form" onSubmit={handleOnSubmit}>
           <div className="section-line">
@@ -267,7 +267,7 @@ const CreateSpot = () => {
           </div>
         </form>
       )}
-    </div>
+    </>
   );
 };
 
