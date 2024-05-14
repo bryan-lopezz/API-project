@@ -20,11 +20,11 @@ function Navigation({ isLoaded }) {
       </div>
       <section className='top-right-buttons'>
       {sessionUser && (
-        <span>
+        <div className='new-spot-button'>
           <NavLink className="create-new-spot-nav" to='/spots/new'>
-            Create a New Spot
+            Rent Your Site
           </NavLink>
-        </span>
+        </div>
       )}
       {isLoaded && (
         <span>
