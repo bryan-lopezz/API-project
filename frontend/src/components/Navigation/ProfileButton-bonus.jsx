@@ -59,12 +59,14 @@ function ProfileButton({ user }) {
         {user ? (
           <div>
             {/* <li>{user.username}</li> */}
-            <div className='profile-text'>Hello, {user.firstName}</div>
-            <div className='profile-text'>{user.email}</div>
-            <div>
+            <div className='hello-user-container'>
+              <div className='profile-text'>Hello, {user.firstName}</div>
+              <div className='profile-text'>{user.email}</div>
+            </div>
+            <div className='manage-spots-container'>
               <NavLink className="manage-spots" onClick={manageSpots}>Manage Spots</NavLink>
             </div>
-            <div>
+            <div className='log-out-container'>
               <button className='log-out' onClick={logout}>Log Out</button>
             </div>
           </div>
