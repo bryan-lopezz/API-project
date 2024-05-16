@@ -22,7 +22,7 @@ const ManageSpots = () => {
   return (
     <div>
       {currentUser && (
-        <div className="">
+        <div>
           <div className="main-heading">
             <h1>Manage Your Spots</h1>
             <button className="manage-create-new-spot-button" onClick={() => navigate("/spots/new")}>
@@ -32,7 +32,7 @@ const ManageSpots = () => {
           <div className="manage-spots-container-2">
             {spots.map((spot) => (
               <div key={spot.id} className="manage-spot-tile">
-                <NavLink to={`/spots/${spot.id}`}>
+                <NavLink className="tile-navlink" to={`/spots/${spot.id}`}>
                   <div title={spot.name} >
                     <img
                       className="manage-tile-image"
@@ -41,30 +41,37 @@ const ManageSpots = () => {
                     />
                     <div className="manage-listing-info">
                       <div className="manage-location-details">
-                        <span>{`${spot.city}, ${spot.state}`}</span>
+                        <span className="manage-location">{`${spot.city}, ${spot.state}`}</span>
                         <div className="manage-rating">
 
                             <i className="fas fa-star"></i>
-                            {spot?.avgRating?.toFixed(1)}
+                            {spot?.avgRating?.toFixed(1) || 'New'}
 
                         </div>
                       </div>
-                      <p>
+                      <div className="manage-price">
                         <span>{`$${spot.price}`}</span> night
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </NavLink>
-                <button
-                  className="update-spot-button"
-                  onClick={() => navigate(`/spots/${spot.id}/edit`)}
-                >
-                  Update
-                </button>
-                <OpenModalButton
-                  buttonText={"Delete"}
-                  modalComponent={<DeleteSpot spotId={spot.id} />}
-                />
+                <div className="manage-buttons">
+                  <div className="update-button-div">
+                    <button
+                      className="update-spot-button"
+                      onClick={() => navigate(`/spots/${spot.id}/edit`)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <div className="delete-button-div">
+                  <OpenModalButton
+                    className="delete-spot-button"
+                    buttonText={"Delete"}
+                    modalComponent={<DeleteSpot spotId={spot.id} />}
+                  />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
