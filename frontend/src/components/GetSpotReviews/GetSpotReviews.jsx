@@ -36,7 +36,7 @@ const GetSpotReviews = () => {
   return (
       <section>
         {!reviews.length && sessionUser && sessionUser !== spot?.Owner?.id && (
-          <div>Be the first to post a review!</div>
+          <div className="be-first-review">Be the first to post a review!</div>
         )}
         {
           reviews.map(review => (

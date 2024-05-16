@@ -86,6 +86,7 @@ const SpotDetailsPage = () => {
               <p className="star-reviews"><i className="fa-solid fa-star" style={{fontSize: 'x-large'}}></i><span className="rating-review-2" style={{fontSize: 'x-large', fontWeight: 'bold'}}> {reviews()}</span></p>
               {!findUserReview && sessionUser && sessionUser !== selectedSpot?.ownerId && (
                 <OpenModalButton
+                  className="post-review-button"
                   modalComponent={<CreateReview />}
                   buttonText={'Post Your Review'}
                 />

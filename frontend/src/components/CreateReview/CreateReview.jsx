@@ -75,7 +75,7 @@ const CreateReview = () => {
   return (
     <>
       {sessionUser && (sessionUser !== spotOwner) && !reviewed && (
-            <form onSubmit={onSubmit}>
+            <form className="create-review-form" onSubmit={onSubmit}>
               <h2>How was your stay?</h2>
               <textarea
                 placeholder="Leave your review here..."
@@ -83,7 +83,7 @@ const CreateReview = () => {
                 value={review}
                 onChange={e => setReview(e.target.value)}
                />
-               <div>
+               <div className="create-review-star-rating">
                 {starRatings.map((star, index) => {
                   const rating = index + 1;
                   return (

@@ -57,10 +57,12 @@ textarea {
   width: 495px;
   height: 150px;
   font-family: inherit;
+  background-color: aliceblue;
 }
 
 input {
   appearance: none;
+  background-color: aliceblue;
 }
 
 .spot-name-input {
@@ -91,7 +93,7 @@ input {
   display: flex;
   /* border: 1px solid red; */
   justify-content: center;
-  padding-top: 24px;
+  padding-top: 35px;
 }
 
 .create-button {
