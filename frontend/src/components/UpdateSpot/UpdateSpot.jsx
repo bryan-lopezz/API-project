@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateSpotThunk } from "../../store/spots";
 import { useNavigate, useParams } from 'react-router-dom';
 import { getSpotDetails } from "../../store/spots";
@@ -29,47 +29,47 @@ const UpdateSpot = () => {
   // const [imageFour, setImageFour] = useState('');
   // const [imageFive, setImageFive] = useState('');
 
-  const [validations, setValidations] = useState({});
+  // const [validations, setValidations] = useState({});
 
-  useEffect(() => {
-    !currentUser && navigate('/');
+  // useEffect(() => {
+  //   !currentUser && navigate('/');
 
-    const validationsObj = {};
+  //   const validationsObj = {};
 
-    !country && (
-      validationsObj.country = 'Country is required.'
-    )
+  //   !country && (
+  //     validationsObj.country = 'Country is required.'
+  //   )
 
-    !address && (
-      validationsObj.address = 'Address is required.'
-    )
+  //   !address && (
+  //     validationsObj.address = 'Address is required.'
+  //   )
 
-    !city && (
-      validationsObj.city = 'City is required.'
-    )
+  //   !city && (
+  //     validationsObj.city = 'City is required.'
+  //   )
 
-    !state && (
-      validationsObj.state = 'State is required.'
-    )
+  //   !state && (
+  //     validationsObj.state = 'State is required.'
+  //   )
 
-    description?.length < 30 && (
-      validationsObj.description = 'Description should be at least 30 characters.'
-    )
+  //   description?.length < 30 && (
+  //     validationsObj.description = 'Description should be at least 30 characters.'
+  //   )
 
-    !name && (
-      validationsObj.name = 'Name is required.'
-    )
+  //   !name && (
+  //     validationsObj.name = 'Name is required.'
+  //   )
 
-    !price && (
-      validationsObj.price = 'Price is required.'
-    )
+  //   !price && (
+  //     validationsObj.price = 'Price is required.'
+  //   )
 
-    // !previewImg && (
-    //   validationsObj.previewImg = 'Please add a preview image.'
-    // )
+  //   // !previewImg && (
+  //   //   validationsObj.previewImg = 'Please add a preview image.'
+  //   // )
 
-    setValidations(validationsObj)
-  }, [country, address, city, state, description, name, price, currentUser, navigate])
+  //   setValidations(validationsObj)
+  // }, [country, address, city, state, description, name, price, currentUser, navigate])
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
