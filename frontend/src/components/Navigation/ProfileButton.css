@@ -59,3 +59,14 @@
   flex-direction: column;
   gap: 5px;
 }
+
+.profile-dropdown {
+  background-color: aqua;
+}
+
+.guest-profile-dropdown {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}

@@ -71,7 +71,7 @@ function ProfileButton({ user }) {
             </div>
           </div>
         ) : (
-          <>
+          <div className='guest-profile-dropdown'>
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
@@ -82,7 +82,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
       </div>
     </>
