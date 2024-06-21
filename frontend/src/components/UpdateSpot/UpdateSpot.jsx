@@ -121,7 +121,7 @@ const UpdateSpot = () => {
                 required
               />
             </label>
-            {/* {validations.country && <span className="validation-message">{validations.country}</span>} */}
+            {validations.country && <span className="validation-message">{validations.country}</span>}
             <label className="country-address">
               {<span>Street Address</span>}
               <input
