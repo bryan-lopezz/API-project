@@ -202,7 +202,7 @@ router.get('/current', requireAuth, async(req, res) => {
 
       if (avgRatingArray[0]) {
       avgRating = avgRatingArray[0].get('avgRating');
-      avgRating = parseFloat(avgRating);
+      // avgRating = parseFloat(avgRating);
       };
 
       const formattedCreatedAt = spot.createdAt.toJSON().split('T').join(' ').split('Z').join('').slice(0,19);
