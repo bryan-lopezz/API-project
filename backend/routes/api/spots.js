@@ -215,7 +215,7 @@ router.get('/current', requireAuth, async(req, res) => {
         createdAt: formattedCreatedAt,
         updatedAt: formattedUpdatedAt,
         price: parseFloat(spot.price),
-        avgRating: avgRating ? avgRating : null,
+        avgRating: avgRating ? avgRating.toFixed(1) : null,
         previewImage: previewImage ? previewImage.url : null,
       };
     })
