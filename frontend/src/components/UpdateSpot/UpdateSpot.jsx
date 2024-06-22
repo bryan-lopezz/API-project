@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateSpotThunk } from "../../store/spots";
 import { useNavigate, useParams } from 'react-router-dom';
 import { getSpotDetails } from "../../store/spots";
@@ -10,7 +10,7 @@ const UpdateSpot = () => {
   const navigate = useNavigate();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots[spotId])
-  console.log("🚀 ~ UpdateSpot ~ spot:", spot)
+  // console.log("🚀 ~ UpdateSpot ~ spot:", spot)
   const currentUser = useSelector(state => state.session.user)
 
   const [country, setCountry] = useState(spot?.country);
@@ -29,14 +29,11 @@ const UpdateSpot = () => {
   const [imageFour, setImageFour] = useState(spot?.imageFour);
   const [imageFive, setImageFive] = useState(spot?.imageFive);
 
-  // const [validations, setValidations] = useState({});
+  const [validations, setValidations] = useState({});
 
-  // useEffect(() => {
-  //   !currentUser && navigate('/');
+  useEffect(() => {
+    !currentUser && navigate('/');
 
-<<<<<<< HEAD
-  //   const validationsObj = {};
-=======
 
   }, [country, address, city, state, description, name, price, currentUser, navigate])
 
@@ -44,53 +41,40 @@ const UpdateSpot = () => {
     e.preventDefault();
 
     const validationsObj = {};
->>>>>>> dev
 
-  //   !country && (
-  //     validationsObj.country = 'Country is required.'
-  //   )
+    !country && (
+      validationsObj.country = 'Country is required.'
+    )
 
-  //   !address && (
-  //     validationsObj.address = 'Address is required.'
-  //   )
+    !address && (
+      validationsObj.address = 'Address is required.'
+    )
 
-  //   !city && (
-  //     validationsObj.city = 'City is required.'
-  //   )
+    !city && (
+      validationsObj.city = 'City is required.'
+    )
 
-  //   !state && (
-  //     validationsObj.state = 'State is required.'
-  //   )
+    !state && (
+      validationsObj.state = 'State is required.'
+    )
 
-  //   description?.length < 30 && (
-  //     validationsObj.description = 'Description should be at least 30 characters.'
-  //   )
+    description?.length < 30 && (
+      validationsObj.description = 'Description should be at least 30 characters.'
+    )
 
-  //   !name && (
-  //     validationsObj.name = 'Name is required.'
-  //   )
+    !name && (
+      validationsObj.name = 'Name is required.'
+    )
 
-  //   !price && (
-  //     validationsObj.price = 'Price is required.'
-  //   )
+    !price && (
+      validationsObj.price = 'Price is required.'
+    )
 
-<<<<<<< HEAD
-  //   // !previewImg && (
-  //   //   validationsObj.previewImg = 'Please add a preview image.'
-  //   // )
-
-  //   setValidations(validationsObj)
-  // }, [country, address, city, state, description, name, price, currentUser, navigate])
-
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-=======
     !previewImg && (
       validationsObj.previewImg = 'Please add a preview image.'
     )
 
     setValidations(validationsObj)
->>>>>>> dev
 
     const newSpot = {
       ownerId: currentUser.id,
