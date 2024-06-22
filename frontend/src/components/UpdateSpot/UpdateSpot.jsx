@@ -23,16 +23,22 @@ const UpdateSpot = () => {
   const [name, setName] = useState(spot?.name);
   const [price, setPrice] = useState(spot?.price);
 
-  // const [previewImg, setPreviewImg] = useState('');
-  // const [imageTwo, setImageTwo] = useState('');
-  // const [imageThree, setImageThree] = useState('');
-  // const [imageFour, setImageFour] = useState('');
-  // const [imageFive, setImageFive] = useState('');
+  const [previewImg, setPreviewImg] = useState(spot?.previewImg);
+  const [imageTwo, setImageTwo] = useState(spot?.imageTwo);
+  const [imageThree, setImageThree] = useState(spot?.imageThree);
+  const [imageFour, setImageFour] = useState(spot?.imageFour);
+  const [imageFive, setImageFive] = useState(spot?.imageFive);
 
   const [validations, setValidations] = useState({});
 
   useEffect(() => {
     !currentUser && navigate('/');
+
+
+  }, [country, address, city, state, description, name, price, currentUser, navigate])
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
 
     const validationsObj = {};
 
@@ -64,15 +70,11 @@ const UpdateSpot = () => {
       validationsObj.price = 'Price is required.'
     )
 
-    // !previewImg && (
-    //   validationsObj.previewImg = 'Please add a preview image.'
-    // )
+    !previewImg && (
+      validationsObj.previewImg = 'Please add a preview image.'
+    )
 
     setValidations(validationsObj)
-  }, [country, address, city, state, description, name, price, currentUser, navigate])
-
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
 
     const newSpot = {
       ownerId: currentUser.id,
@@ -101,7 +103,7 @@ const UpdateSpot = () => {
   }
 
   return (
-<>
+    <>
       {currentUser && (
         <form className="create-spot-form" onSubmit={handleOnSubmit}>
           <div className="section-line">
@@ -111,19 +113,35 @@ const UpdateSpot = () => {
               Guests will only get your exact address once they booked a
               reservation.
             </p>
+            <span id="required-field">* Indicates a required field</span>
             <label className="country-address">
-              {<span>Country</span>}
+              <span>
+                * Country{" "}
+                {validations.country && (
+                  <span className="validation-message">
+                    {validations.country}
+                  </span>
+                )}{" "}
+              </span>
               <input
                 type="text"
                 placeholder="Country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                required
+                // required
               />
             </label>
-            {validations.country && <span className="validation-message">{validations.country}</span>}
             <label className="country-address">
-              {<span>Street Address</span>}
+              {
+                <span>
+                  * Street Address{" "}
+                  {validations.address && (
+                    <span className="validation-message">
+                      {validations.address}
+                    </span>
+                  )}
+                </span>
+              }
               <input
                 type="text"
                 name="address"
@@ -131,11 +149,11 @@ const UpdateSpot = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-              {/* {validations.address && <span className="validation-message">{validations.address}</span>} */}
             </label>
             <div className="city-state-container">
               <label className="city-input">
-                {<div>City</div>}
+
+                <div>* City {validations.city && <span className="validation-message">{validations.city}</span> } </div>
                 <input
                   className="city-textbox"
                   type="text"
@@ -144,11 +162,11 @@ const UpdateSpot = () => {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                 />
-                <span className="comma-separator"> ,</span>
-                {/* {validations.city && <span className="validation-message">{validations.city}</span>} */}
               </label>
-              <label htmlFor="state">
-                {<div>State</div>}
+              <label id="state-input">
+
+                <div id="state-validation-container"><span>* State </span>{validations.state && <span className="validation-message">{validations.state}</span>}</div>
+                <span className="comma-separator"> ,</span>
                 <input
                   type="text"
                   name="state"
@@ -156,7 +174,6 @@ const UpdateSpot = () => {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                 />
-                {/* {validations.state && <span className="validation-message">{validations.state}</span>} */}
               </label>
             </div>
             {/* <label htmlFor="lat">
@@ -179,7 +196,8 @@ const UpdateSpot = () => {
             </label> */}
           </div>
           <div className="create-spot-section-2 section-line">
-            <h3>Describe your place to guests</h3>
+            <h3>* Describe your place to guests</h3>
+            {validations.description && <span className="validation-message">{validations.description}</span>}
             <p>
               Mention the best features of your space, any special amenities
               like fast wifi or parking, and what you love about the
@@ -193,14 +211,14 @@ const UpdateSpot = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            {/* {validations.description && <span className="validation-message">{validations.description}</span>} */}
           </div>
           <div className="create-spot-section-3 section-line">
-            <h3>Create a tile for your spot</h3>
+            <h3>* Create a title for your spot</h3>
             <p>
               Catch guests&apos; attention with a spot title that highlights
               what makes your place special.
             </p>
+            {validations.name && <span className="validation-message">{validations.name}</span>}
             <input
               className="spot-name-input"
               type="text"
@@ -209,68 +227,79 @@ const UpdateSpot = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          {/* {validations.name && <span className="validation-message">{validations.name}</span>} */}
           <div className="create-spot-section-4 section-line">
-            <h3>Set a base price for your spot</h3>
+            <h3>* Set a base price for your spot</h3>
             <p>
               Competitive pricing can help your listing stand out and rank
               higher in search results.
             </p>
-            <span>$ </span>
-            <input
-              className="price-input"
-              type="number"
-              placeholder="Price per night (USD)"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
+
+            <div id="price-div">
+              {validations.price && (
+                <span id="price-validation" className="validation-message">
+                  {validations.price}
+                </span>
+              )}
+              <div><span>$               <input
+                className="price-input"
+                type="number"
+                placeholder="Price per night (USD)"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              /></span> </div>
+            </div>
           </div>
-          {/* {validations.price && <span className="validation-message">{validations.price}</span>} */}
-          {/* <div className="create-spot-section-5 section-line">
+
+          <div className="create-spot-section-5 section-line">
             <h3 className="liven-up">Liven up your spot with photos</h3>
             <p>Submit a link to at least one photo to publish your spot.</p>
             <div className="image-inputs">
               <input
                 type="text"
-                placeholder="Preview Image URL"
+                placeholder="Preview Image URL –– Required"
                 value={previewImg}
                 onChange={(e) => setPreviewImg(e.target.value)}
               />
-              {validations.previewImg && <span className="validation-message">{validations.previewImg}</span>}
+              {validations.previewImg && (
+                <span className="validation-message">
+                  {validations.previewImg}
+                </span>
+              )}
               <input
                 type="text"
-                placeholder="Image URL"
+                placeholder="Image URL –– Optional"
                 value={imageTwo}
                 onChange={(e) => setImageTwo(e.target.value)}
               />
               <input
                 type="text"
-                placeholder="Image URL"
+                placeholder="Image URL –– Optional"
                 value={imageThree}
                 onChange={(e) => setImageThree(e.target.value)}
               />
               <input
                 type="text"
-                placeholder="Image URL"
+                placeholder="Image URL –– Optional"
                 value={imageFour}
                 onChange={(e) => setImageFour(e.target.value)}
               />
               <input
                 type="text"
-                placeholder="Image URL"
+                placeholder="Image URL –– Optional"
                 value={imageFive}
                 onChange={(e) => setImageFive(e.target.value)}
               />
-
-            </div> */}
-          {/* </div> */}
+            </div>
+          </div>
           <div className="create-button-container">
-            <button className="create-button" type="submit">Update Spot</button>
+            <button className="create-button" type="submit">
+              Update Spot
+            </button>
           </div>
         </form>
       )}
     </>
-  )
+  );
 }
 
 export default UpdateSpot;
