@@ -45,8 +45,8 @@ const ManageSpots = () => {
                         <div className="manage-rating">
 
                             <i className="fas fa-star"></i>
-                            {spot?.avgRating || 'New'}
-                            {/* console.log("🚀 ~ ManageSpots ~ spot:", spot) */}
+                            {spot?.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}
+
 
                         </div>
                       </div>
