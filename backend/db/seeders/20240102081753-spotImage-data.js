@@ -399,7 +399,7 @@ const spotImages = [
   },
   {
     spotId: 16,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821817/Split_55_xvtiaq.png",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821818/Split_53_k39fh1.png",
     preview: true,
   },
   {
@@ -409,7 +409,7 @@ const spotImages = [
   },
   {
     spotId: 16,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821819/Split_57_iitldn.png",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821819/Split_52_bjvipz.png",
     preview: true,
   },
 ];
