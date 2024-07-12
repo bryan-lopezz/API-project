@@ -239,7 +239,27 @@ const spotImages = [
   },
   {
     spotId: 10,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720806114/Icebox_6_yonvqr.png",
+    preview: true,
+  },
+  {
+    spotId: 10,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720806115/Icebox_2_nrz7pa.png",
+    preview: true,
+  },
+  {
+    spotId: 10,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720806116/Icebox_3_bc0gph.png",
+    preview: true,
+  },
+  {
+    spotId: 10,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720806118/Icebox_4_ghy0mu.png",
+    preview: true,
+  },
+  {
+    spotId: 10,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720806118/Icebox_1_k3cicr.png",
     preview: true,
   },
   {
