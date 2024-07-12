@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton-bonus';
-import logo from './favicon.ico'
+import logo from './output-onlinepngtools.png'
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
