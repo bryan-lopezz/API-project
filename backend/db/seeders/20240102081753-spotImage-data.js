@@ -314,22 +314,102 @@ const spotImages = [
   },
   {
     spotId: 13,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720818192/Split_16_mx2wxn.png",
+    preview: true,
+  },
+  {
+    spotId: 13,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720818184/Split_15_iz3jvs.png",
+    preview: true,
+  },
+  {
+    spotId: 13,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720818189/Split_17_paq4wm.png",
+    preview: true,
+  },
+  {
+    spotId: 13,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720818189/Split_18_dlwkbq.png",
+    preview: true,
+  },
+  {
+    spotId: 13,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720818192/Split_19_pjxyhm.png",
     preview: true,
   },
   {
     spotId: 14,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720819240/Split_22_uuzvpe.png",
+    preview: true,
+  },
+  {
+    spotId: 14,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720819239/Split_21_jkgc9x.png",
+    preview: true,
+  },
+  {
+    spotId: 14,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720819243/Split_24_bevbm3.png",
+    preview: true,
+  },
+  {
+    spotId: 14,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720819243/Split_25_c5us4o.png",
+    preview: true,
+  },
+  {
+    spotId: 14,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720819244/Split_23_ljtg2v.png",
     preview: true,
   },
   {
     spotId: 15,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821472/Split_26_sb58td.png",
+    preview: true,
+  },
+  {
+    spotId: 15,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821476/Split_27_fpsyys.png",
+    preview: true,
+  },
+  {
+    spotId: 15,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821477/Split_30_ahxofh.png",
+    preview: true,
+  },
+  {
+    spotId: 15,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821478/Split_29_hczcml.png",
+    preview: true,
+  },
+  {
+    spotId: 15,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821478/Split_28_hvmebf.png",
     preview: true,
   },
   {
     spotId: 16,
-    url: "https://res.cloudinary.com/lopez-projects/image/upload/f_auto,q_auto/stnsomcuuy3msytvwzyi",
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821814/Split_51_xujvtx.png",
+    preview: true,
+  },
+  {
+    spotId: 16,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821817/Split_55_xvtiaq.png",
+    preview: true,
+  },
+  {
+    spotId: 16,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821817/Split_55_xvtiaq.png",
+    preview: true,
+  },
+  {
+    spotId: 16,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821819/Split_57_iitldn.png",
+    preview: true,
+  },
+  {
+    spotId: 16,
+    url: "https://res.cloudinary.com/lopez-projects/image/upload/v1720821819/Split_57_iitldn.png",
     preview: true,
   },
 ];
