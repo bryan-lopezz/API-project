@@ -8,7 +8,6 @@ import "./LandingPage.css";
 const LandingPage = () => {
   const dispatch = useDispatch();
   const spots = useSelector(selectedSpotsArray);
-  console.log("🚀 ~ LandingPage ~ spots:", spots);
 
   useEffect(() => {
     dispatch(getAllSpots());
