@@ -28,6 +28,7 @@ const CreateSpot = () => {
   const [imageFive, setImageFive] = useState("");
 
   const [validations, setValidations] = useState({});
+  console.log("🚀 ~ CreateSpot ~ validations:", validations);
   const [hasSubmit, setHasSubmit] = useState(false);
 
   const handleOnSubmit = async (e) => {
@@ -54,6 +55,22 @@ const CreateSpot = () => {
     !price && (validationsObj.price = "Price is required.");
 
     !previewImg && (validationsObj.previewImg = "Please add a preview image.");
+
+    if (!previewImg.endsWith(".jpg" || ".png" || ".img")) {
+      validationsObj.previewImg = "Url must be a .jpg, .png, or .img file.";
+    }
+    if (!imageTwo?.endsWith(".jpg" || ".png" || ".img")) {
+      validationsObj.imageTwo = "Url must be a .jpg, .png, or .img file.";
+    }
+    if (!imageThree?.endsWith(".jpg" || ".png" || ".img")) {
+      validationsObj.imageThree = "Url must be a .jpg, .png, or .img file.";
+    }
+    if (!imageFour?.endsWith(".jpg" || ".png" || ".img")) {
+      validationsObj.imageFour = "Url must be a .jpg, .png, or .img file.";
+    }
+    if (!imageFive?.endsWith(".jpg" || ".png" || ".img")) {
+      validationsObj.imageFive = "Url must be a .jpg, .png, or .img file.";
+    }
 
     setValidations(validationsObj);
 
@@ -151,8 +168,14 @@ const CreateSpot = () => {
             </label>
             <div className="city-state-container">
               <label className="city-input">
-
-                <div>* City {validations.city && <span className="validation-message">{validations.city}</span> } </div>
+                <div>
+                  * City{" "}
+                  {validations.city && (
+                    <span className="validation-message">
+                      {validations.city}
+                    </span>
+                  )}{" "}
+                </div>
                 <input
                   className="city-textbox"
                   type="text"
@@ -163,8 +186,14 @@ const CreateSpot = () => {
                 />
               </label>
               <label id="state-input">
-
-                <div id="state-validation-container"><span>* State </span>{validations.state && <span className="validation-message">{validations.state}</span>}</div>
+                <div id="state-validation-container">
+                  <span>* State </span>
+                  {validations.state && (
+                    <span className="validation-message">
+                      {validations.state}
+                    </span>
+                  )}
+                </div>
                 <span className="comma-separator"> ,</span>
                 <input
                   type="text"
@@ -196,7 +225,11 @@ const CreateSpot = () => {
           </div>
           <div className="create-spot-section-2 section-line">
             <h3>* Describe your place to guests</h3>
-            {validations.description && <span className="validation-message">{validations.description}</span>}
+            {validations.description && (
+              <span className="validation-message">
+                {validations.description}
+              </span>
+            )}
             <p>
               Mention the best features of your space, any special amenities
               like fast wifi or parking, and what you love about the
@@ -217,7 +250,9 @@ const CreateSpot = () => {
               Catch guests&apos; attention with a spot title that highlights
               what makes your place special.
             </p>
-            {validations.name && <span className="validation-message">{validations.name}</span>}
+            {validations.name && (
+              <span className="validation-message">{validations.name}</span>
+            )}
             <input
               className="spot-name-input"
               type="text"
@@ -239,13 +274,18 @@ const CreateSpot = () => {
                   {validations.price}
                 </span>
               )}
-              <div><span>$               <input
-                className="price-input"
-                type="number"
-                placeholder="Price per night (USD)"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              /></span> </div>
+              <div>
+                <span>
+                  ${" "}
+                  <input
+                    className="price-input"
+                    type="number"
+                    placeholder="Price per night (USD)"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </span>{" "}
+              </div>
             </div>
           </div>
 
@@ -253,15 +293,20 @@ const CreateSpot = () => {
             <h3 className="liven-up">Liven up your spot with photos</h3>
             <p>Submit a link to at least one photo to publish your spot.</p>
             <div className="image-inputs">
+              {validations.previewImg && (
+                <span className="validation-message">
+                  {validations.previewImg}
+                </span>
+              )}
               <input
                 type="text"
                 placeholder="Preview Image URL –– Required"
                 value={previewImg}
                 onChange={(e) => setPreviewImg(e.target.value)}
               />
-              {validations.previewImg && (
+              {imageTwo && validations.imageTwo && (
                 <span className="validation-message">
-                  {validations.previewImg}
+                  {validations.imageTwo}
                 </span>
               )}
               <input
@@ -270,18 +315,33 @@ const CreateSpot = () => {
                 value={imageTwo}
                 onChange={(e) => setImageTwo(e.target.value)}
               />
+              {imageThree && validations.imageThree && (
+                <span className="validation-message">
+                  {validations.imageThree}
+                </span>
+              )}
               <input
                 type="text"
                 placeholder="Image URL –– Optional"
                 value={imageThree}
                 onChange={(e) => setImageThree(e.target.value)}
               />
+              {imageFour && validations.imageFour && (
+                <span className="validation-message">
+                  {validations.imageFour}
+                </span>
+              )}
               <input
                 type="text"
                 placeholder="Image URL –– Optional"
                 value={imageFour}
                 onChange={(e) => setImageFour(e.target.value)}
               />
+              {imageFive && validations.imageFive && (
+                <span className="validation-message">
+                  {validations.imageFive}
+                </span>
+              )}
               <input
                 type="text"
                 placeholder="Image URL –– Optional"
