@@ -11,18 +11,20 @@ body {
   left: 0;
   right: 0;
   width: 100%;
-  height: 100px;
+  height: 90px;
   border-bottom: 1px solid lightgray;
   justify-content: space-between;
   position: fixed;
-  padding: 5px 10px;
+  padding: 0px 10px;
   z-index: 1;
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .top-right-buttons {
   display: flex;
   margin-right: 50px;
+  /* border: 1px solid red; */
+  align-items: center;
 }
 
 
@@ -48,8 +50,10 @@ body {
 }
 
 .logo {
-  width: 60px;
+  width: 70px;
   /* height: 50px; */
+  background-color: transparent;
+  display: block;
 }
 
 .fa-bars {
@@ -62,9 +66,9 @@ body {
   border-radius: 30px;
   border-width: thin;
   border: 1px solid black;
-  font-size: 20px;
+  font-size: 25px;
   padding: 6px 10px;
-  background-color: aliceblue;
+  background-color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -78,8 +82,10 @@ body {
   padding: 5px 10px 5px 10px;
   border: 1px solid black;
   border-radius: 11px;
-  box-shadow: 2px 2px .5em .008em lightgray;
-  background-color: aliceblue;
+  box-shadow: 2px 2px .5em .008em blue;
+  background-color: white;
+  height: 100px;
+  width: 120px;
 }
 
 .menu-item {
@@ -87,4 +93,12 @@ body {
   cursor: pointer;
   padding: 8px 8px;
   padding-right: 100px;
+}
+
+.create-new-spot-nav {
+  text-decoration: none;
+}
+
+.new-spot-button {
+  padding-right: 10px;
 }

@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   padding-bottom: 5px;
+  padding-top: 10px;
 }
 
 span {
@@ -57,18 +58,22 @@ textarea {
   width: 495px;
   height: 150px;
   font-family: inherit;
+  background-color: aliceblue;
 }
 
 input {
   appearance: none;
+  background-color: aliceblue;
 }
 
 .spot-name-input {
   width: 492px;
+  margin-top: 5px;
 }
 
 .price-input {
   width: 478px;
+  margin-top: 5px;
 }
 
 .create-spot-section-5 {
@@ -91,7 +96,7 @@ input {
   display: flex;
   /* border: 1px solid red; */
   justify-content: center;
-  padding-top: 24px;
+  padding-top: 35px;
 }
 
 .create-button {
@@ -100,4 +105,29 @@ input {
   box-shadow: 3px 3px 2px black;
   cursor: pointer;
   border: 1px solid black;
+}
+
+.create-button:disabled {
+  color: black;
+  background-color: lightgrey;
+}
+
+#required-field {
+  font-style: italic;
+}
+
+#price-validation {
+  /* border: 1px solid orange; */
+}
+
+#state-input {
+  /* border: 1px solid orange; */
+  /* padding-right: 100px;
+  display: flex;
+  flex-direction: column; */
+}
+
+#state-validation-container {
+  /* border: 1px solid purple; */
+  width: 300px;
 }

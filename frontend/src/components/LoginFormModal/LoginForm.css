@@ -34,7 +34,7 @@
   width: 280px;
   padding: 13px;
   box-shadow: 3px 3px 2px gray;
-  background-color: rgb(222, 27, 27);
+  background-color: #fd4556;
   color: aliceblue;
   cursor: pointer;
   border: 1px solid black;
@@ -43,7 +43,7 @@
   width: 286px;
   padding: 13px;
   box-shadow: 3px 3px 2px gray;
-  background-color: rgb(209, 135, 135);
+  background-color: rgb(227, 117, 117);
   color: white;
   cursor: default;
   border: 1px solid black;
@@ -58,6 +58,6 @@
   border: none;
   text-decoration: underline;
   background: none;
-  color: #b4301c;
+  color: #fd4556;
   cursor: pointer;
 }

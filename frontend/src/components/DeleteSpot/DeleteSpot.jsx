@@ -1,6 +1,7 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch} from "react-redux";
 import { deleteSpotThunk } from "../../store/spots";
+import './DeleteSpot.css';
 
 const DeleteSpot = ({ spotId }) => {
   // const spotid = useSelector(state => console.log('this is the state at deleteSpot', state))
@@ -19,9 +20,9 @@ const DeleteSpot = ({ spotId }) => {
     <form className="delete-spot-form" onSubmit={handleDeleteOnSubmit}>
       <h2>Confirm Delete</h2>
       <p>Are you sure you want to remove this spot?</p>
-      <section>
-        <button type="submit">Yes (Delete Spot)</button>
-        <button onClick={() => closeModal()}>No (Keep Spot)</button>
+      <section className="delete-buttons">
+        <button className="yes-delete" type="submit">Yes (Delete Spot)</button>
+        <button className="no-delete" onClick={() => closeModal()}>No (Keep Spot)</button>
       </section>
     </form>
   )

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton-bonus';
-import logo from './favicon.ico'
+import logo from './output-onlinepngtools.png'
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -20,11 +20,11 @@ function Navigation({ isLoaded }) {
       </div>
       <section className='top-right-buttons'>
       {sessionUser && (
-        <span>
+        <div className='new-spot-button'>
           <NavLink className="create-new-spot-nav" to='/spots/new'>
-            Create a New Spot
+            Rent Your Site
           </NavLink>
-        </span>
+        </div>
       )}
       {isLoaded && (
         <span>

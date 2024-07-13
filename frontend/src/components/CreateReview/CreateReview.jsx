@@ -21,6 +21,7 @@ const CreateReview = () => {
   const [review, setReview] = useState('');
   const [hover, setHover] = useState(0);
   const [stars, setStars] = useState(0);
+  console.log("🚀 ~ CreateReview ~ stars:", stars)
   const [validations, setValidations] = useState({});
   const starRatings = [1, 2, 3, 4, 5];
   const reviewed = reviews?.find(review => review.userId === sessionUser);
@@ -66,16 +67,10 @@ const CreateReview = () => {
     setStars(0);
   }
 
-  // check if logged in
-  // compare the spot owners id to the session user id
-  // if not spot owner check the list of existing reviews
-  // if reviews array does not include user id, show post review button
-
-
   return (
     <>
       {sessionUser && (sessionUser !== spotOwner) && !reviewed && (
-            <form onSubmit={onSubmit}>
+            <form className="create-review-form" onSubmit={onSubmit}>
               <h2>How was your stay?</h2>
               <textarea
                 placeholder="Leave your review here..."
@@ -83,7 +78,7 @@ const CreateReview = () => {
                 value={review}
                 onChange={e => setReview(e.target.value)}
                />
-               <div>
+               <div className="create-review-star-rating">
                 {starRatings.map((star, index) => {
                   const rating = index + 1;
                   return (
@@ -91,7 +86,8 @@ const CreateReview = () => {
                     <input
                       type="radio"
                       value={rating}
-                      onChange={() => setStars(rating)}
+                      onClick={() => setStars(rating)}
+
                       />
                       <FaStar
                         className="stars"
@@ -102,7 +98,7 @@ const CreateReview = () => {
                   </label>
                   )
                 })}
-                 Stars
+                 {/* <span>Stars</span> */}
                </div>
                <button
                disabled={Object.values(validations).length > 0}

@@ -1,4 +1,4 @@
-# BnB
+# Rent A Site
 
 ## Database Schema Design
 

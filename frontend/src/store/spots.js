@@ -60,15 +60,8 @@ export const updateSpotThunk = (spot, spotId) => async dispatch => {
 }
 
 export const createNewSpot = (spot, images) => async dispatch => {
-  console.log("🚀 ~ createNewSpot ~ images:", images)
-  console.log('this is the spot:', spot)
-  // const { previewImg, imageTwo } = images;
-  // console.log("🚀 ~ createNewSpot ~ previewImg:", previewImg)
   const imageUrls = Object.values(images);
-  // imageUrls.shift();
 
-  console.log("🚀 ~ createNewSpot ~ imageUrls:", imageUrls)
-    // console.log("🚀 ~ createNewSpot ~ body:", spot)
     const response = await csrfFetch('/api/spots', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,7 +102,6 @@ export const getAllSpots = () => async dispatch => {
   });
 
   const data = await response.json();
-  // console.log("🚀 ~ getAllSpots ~ data:", data
   dispatch(getSpots(data));
   return response;
 };
@@ -119,7 +111,6 @@ export const getSpotDetails = (spotId) => async dispatch => {
   });
 
   const data = await response.json();
-  // console.log("🚀 ~ getSpotDetails ~ data:", data)
 
   dispatch(getSpot(data));
   return response;
@@ -137,15 +128,13 @@ export const getCurrentSpotsThunk = () => async dispatch => {
 function spotsReducer(state = {}, action) {
   switch(action.type) {
     case GET_SPOTS: {
-      console.log("🚀 ~ action.spots:", action.spots)
+
       const newStateObj = {};
       action.spots.Spots.forEach((spot) => newStateObj[spot.id] = spot)
       return newStateObj;
     }
     case GET_SPOT: {
       const newState = {[action.spot.id]: action.spot};
-      // console.log("🚀 ~ action.spot:", action.spot)
-      // console.log("🚀 ~ spotsReducer ~ newState:", newState)
       return newState;
     }
     case GET_CURRENT_USER_SPOTS: {
@@ -155,7 +144,7 @@ function spotsReducer(state = {}, action) {
     }
     case CREATE_SPOT: {
       const newState = {...state, [action.spot.id]: action.spot};
-      // console.log("🚀 ~ action.spot:", action.spot)
+   
       return newState;
     }
     case UPDATE_SPOT: {
