@@ -82,7 +82,7 @@ body {
   padding: 5px 10px 5px 10px;
   border: 1px solid black;
   border-radius: 11px;
-  box-shadow: 2px 2px .5em .008em blue;
+  box-shadow: 2px 2px .5em .008em;
   background-color: white;
   height: 100px;
   width: 120px;
