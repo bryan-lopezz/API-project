@@ -17,6 +17,9 @@ function SignupFormModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
+
     if (password === confirmPassword) {
       setErrors({});
       return dispatch(
@@ -38,7 +41,7 @@ function SignupFormModal() {
     }
     return setErrors({
       confirmPassword:
-        "Confirm Password field must be the same as the Password field",
+        "Confirm Password field must be the same as the Password field.",
     });
   };
 
@@ -46,6 +49,7 @@ function SignupFormModal() {
     <div id="signup-modal-container">
       <h1 id="signup-header">Sign Up</h1>
       <form id="signup-form-container" onSubmit={handleSubmit}>
+          {errors.email && <span className="error-message">{errors.email}</span>}
         <label>
 
           <input
@@ -54,10 +58,10 @@ function SignupFormModal() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+          {errors.username && <span className="error-message">{errors.username}</span>}
         <label>
 
           <input
@@ -66,10 +70,10 @@ function SignupFormModal() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
+
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+          {errors.firstName && <span className="error-message">{errors.firstName}</span>}
         <label>
 
           <input
@@ -78,10 +82,10 @@ function SignupFormModal() {
             placeholder="First Name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            required
+
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+          {errors.lastName && <span className="error-message">{errors.lastName}</span>}
         <label>
 
           <input
@@ -90,10 +94,10 @@ function SignupFormModal() {
             placeholder="Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            required
+
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+          {errors.password && <span className="error-message">{errors.password}</span>}
         <label>
 
           <input
@@ -102,10 +106,9 @@ function SignupFormModal() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
         <label>
 
           <input
@@ -114,13 +117,12 @@ function SignupFormModal() {
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+
+            />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+            {errors.confirmPassword && <span className="error-messages">{errors.confirmPassword}</span>}
         <div id="signup-button-container">
-          <button id="signup-button" type="submit" >
-            {/* disabled={Object.values(validations).length */}
+          <button id="signup-button" type="submit"  >
             Sign Up
           </button>
         </div>
